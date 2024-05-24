@@ -27,7 +27,7 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              to={"/login"}
+              to={"/"}
               className="hover:text-teal-500 transition ease-in duration-200"
             >
               About Us
@@ -47,13 +47,15 @@ export default function Navbar() {
           </div>
           {/* Login Button */}
           <div className="hidden md:block">
-            <Button
-              rightIcon={<FaRightToBracket size={20} />}
-              colorScheme="teal"
-              variant="solid"
-            >
-              Login
-            </Button>
+            <Link to="/login">
+              <Button
+                rightIcon={<FaRightToBracket size={20} />}
+                colorScheme="teal"
+                variant="solid"
+              >
+                Login
+              </Button>
+            </Link>
           </div>
         </div>
 

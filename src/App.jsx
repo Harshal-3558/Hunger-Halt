@@ -1,6 +1,6 @@
 import Hero from "./components/Hero";
 
-function App() {
+function App(){
   return (
     <>
       <Hero/>

@@ -7,9 +7,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import NameInput from "./NameInput";
 
 const schema = yup
   .object({
+    Name: yup.string().required(),
     Email: yup
       .string()
       .required()
@@ -28,7 +30,7 @@ const schema = yup
   })
   .required();
 
-export default function Login() {
+export default function SignUp() {
   const {
     register,
     handleSubmit,
@@ -45,11 +47,13 @@ export default function Login() {
         <div className="space-y-4">
           <div className="flex-row space-y-2">
             <h1 className="md:text-3xl text-2xl font-bold text-center">
-              Login
+              Sign Up
             </h1>
             <div className="text-sm text-center">
-              <span>{`Don't have an account yet?`}</span>{" "}
-              <Link to={'/signup'} className="text-blue-600 font-semibold">Sign Up</Link>
+              <span>{`Already have an account?`}</span>{" "}
+              <Link to={"/login"} className="text-blue-600 font-semibold">
+                Login
+              </Link>
             </div>
           </div>
           <div className="space-y-2">
@@ -63,6 +67,8 @@ export default function Login() {
         </div>
         {/* Section 3 */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+          {/* Name Input */}
+          <NameInput register={register} errors={errors} />
           {/* Email Input */}
           <EmailInput register={register} errors={errors} />
 
@@ -79,6 +85,8 @@ export default function Login() {
             Continue
           </Button>
         </form>
+        {/* Section 4 */}
+        <div></div>
       </div>
     </div>
   );

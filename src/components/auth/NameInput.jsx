@@ -5,30 +5,28 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
-import { FaEnvelope } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
 import PropTypes from "prop-types";
 
-export default function EmailInput({ register, errors }) {
+export default function NameInput({ register, errors }) {
   return (
-    <FormControl isInvalid={errors.Email}>
+    <FormControl isInvalid={errors.Name}>
       <InputGroup size={{ base: "md", md: "lg" }}>
         <InputLeftElement pointerEvents="none">
-          <FaEnvelope className="text-gray-500" />
+          <FaUser className="text-gray-500" />
         </InputLeftElement>
         <Input
           variant="filled"
-          placeholder="Enter Email"
-          {...register("Email")}
+          placeholder="Enter Name"
+          {...register("Name")}
         />
       </InputGroup>
-      <FormErrorMessage>
-        {errors.Email && errors.Email.message}
-      </FormErrorMessage>
+      <FormErrorMessage>{errors.Name && errors.Name.message}</FormErrorMessage>
     </FormControl>
   );
 }
 
-EmailInput.propTypes = {
+NameInput.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.func.isRequired,
 };
