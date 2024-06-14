@@ -9,6 +9,7 @@ export default function NavbarMenu() {
         name="Dan Abrahmov"
         src="https://bit.ly/dan-abramov"
         size="sm"
+        cursor={"pointer"}
       ></MenuButton>
       <MenuList>
         <MenuItem icon={<FaUser size={17} />}>My Account</MenuItem>

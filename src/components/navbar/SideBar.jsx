@@ -4,22 +4,27 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
-import { FaBars, FaGear, FaHandHoldingHeart, FaHouse, FaRightFromBracket } from "react-icons/fa6";
+import { useRef } from "react";
+import {
+  FaBars,
+  FaGear,
+  FaHandHoldingHeart,
+  FaHouse,
+  FaRightFromBracket,
+} from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 export default function SideBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+  const btnRef = useRef()
 
   return (
     <>
-      <FaBars size={20} ref={btnRef} onClick={onOpen} />
+      <FaBars size={25} ref={btnRef} onClick={onOpen} />
       <Drawer
         isOpen={isOpen}
         placement="left"
@@ -76,13 +81,6 @@ export default function SideBar() {
               Logout
             </Button>
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

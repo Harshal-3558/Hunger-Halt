@@ -6,7 +6,8 @@ import EmailInput from "./EmailInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const schema = yup
   .object({
@@ -36,7 +37,42 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_HOST}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // This is important
+        body: JSON.stringify({
+          email: data.Email,
+          password: data.Password,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Login successful");
+        const user = await response.json();
+        console.log(user.user.role);
+        if (user.user.role) {
+          if (user.user.role == "volunteer") navigate("/volunteer");
+          else if (user.user.role == "donor") navigate("/donor");
+          else if (user.user.role == "ngo") navigate("/ngo");
+        } else {
+          navigate("/selectrole");
+        }
+      } else {
+        toast.error("Invalid Credentials");
+      }
+    } catch (error) {
+      toast.error("Network error");
+      console.error("Network error:", error);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center py-7">
@@ -49,7 +85,9 @@ export default function Login() {
             </h1>
             <div className="text-sm text-center">
               <span>{`Don't have an account yet?`}</span>{" "}
-              <Link to={'/signup'} className="text-blue-600 font-semibold">Sign Up</Link>
+              <Link to={"/signup"} className="text-blue-600 font-semibold">
+                Sign Up
+              </Link>
             </div>
           </div>
           <div className="space-y-2">

@@ -6,8 +6,9 @@ import EmailInput from "./EmailInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NameInput from "./NameInput";
+import toast from "react-hot-toast";
 
 const schema = yup
   .object({
@@ -38,7 +39,34 @@ export default function SignUp() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_HOST}/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.Email,
+          name: data.Name,
+          password: data.Password,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Account Created");
+        navigate("/login");
+      } else {
+        toast.error("Something went worng");
+      }
+    } catch (error) {
+      toast.error("Network error");
+      console.error("Network error:", error);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center py-7">

@@ -3,24 +3,20 @@ import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import App from "./App.jsx";
 import "./index.css";
-import Navbar from "./components/Navbar.jsx";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Footer from "./components/Footer.jsx";
-import Login from "./components/auth/Login.jsx";
-import SignUp from "./components/auth/SignUp.jsx";
+import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
+import store from "./reduxStore/store.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ChakraProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-        <Footer />
-      </ChakraProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ChakraProvider>
+          <Toaster />
+          <App />
+        </ChakraProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
