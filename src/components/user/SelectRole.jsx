@@ -8,10 +8,12 @@ import {
   FaHandshakeAngle,
 } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function SelectRole() {
   const [selectedRole, setSelectedRole] = useState(null);
   const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
 
   const handleRoleUpdate = async () => {
     // console.log(user.role);
@@ -29,8 +31,10 @@ export default function SelectRole() {
       }
     );
 
+    const data = await response.json();
     if (response.ok) {
       toast.success("Your role is updated");
+      navigate(`/${data.role}`);
     } else {
       toast.error("Something went wrong");
     }

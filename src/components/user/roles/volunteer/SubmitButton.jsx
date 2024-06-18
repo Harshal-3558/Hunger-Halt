@@ -6,35 +6,33 @@ import { useSelector } from "react-redux";
 export default function SubmitButton({
   location,
   address,
-  foodName,
-  qty,
-  shelfLife,
+  image,
   onClose,
+  requiredQTY,
 }) {
   const user = useSelector((state) => state.auth.user);
 
   async function handleFunction() {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/donateFood`,
+      `${import.meta.env.VITE_HOST}/user/createHungerSpot`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          foodName,
-          donorName: user.name,
-          donorEmail: user.email,
-          qty,
-          shelfLife,
+          name: user.name,
+          email: user.email,
           location,
           address,
+          requiredQTY,
+          image,
         }),
       }
     );
 
     if (response.ok) {
-      toast.success("Your food donation added");
+      toast.success("New Hunger Spot Registered");
     } else {
       toast.error("Something went wrong");
     }
@@ -57,9 +55,8 @@ export default function SubmitButton({
 
 SubmitButton.propTypes = {
   location: PropTypes.object,
-  address: PropTypes.string.isRequired,
-  foodName: PropTypes.string.isRequired,
-  qty: PropTypes.string.isRequired,
-  shelfLife: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
+  address: PropTypes.string,
+  image: PropTypes.string,
+  onClose: PropTypes.func,
+  requiredQTY: PropTypes.number,
 };

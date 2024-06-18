@@ -2,30 +2,30 @@ import { useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthStatus } from "./reduxStore/auth/authSlice";
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import SelectRole from "./components/user/SelectRole";
-import Notification from "./components/navbar/Notification";
 import Hero from "./components/Hero";
 import VolunteerHome from "./components/user/roles/VolunteerHome";
 import DonorHome from "./components/user/roles/DonorHome";
 import NgoHome from "./components/user/roles/NgoHome";
+import VolunteerStatus from "./components/user/roles/volunteer/VolunteerStatus";
 
-const App = () => {
+export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { loggedIn, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchAuthStatus());
   }, [dispatch]);
 
+  const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
-    if (loggedIn && user) {
+    if (user) {
       if (location.pathname === "/") {
         switch (user.role) {
           case "volunteer":
@@ -42,7 +42,7 @@ const App = () => {
         }
       }
     }
-  }, [loggedIn, user, location.pathname, navigate]);
+  }, [user, location.pathname, navigate]);
 
   return (
     <>
@@ -55,11 +55,9 @@ const App = () => {
         <Route path="/volunteer" element={<VolunteerHome />} />
         <Route path="/donor" element={<DonorHome />} />
         <Route path="/ngo" element={<NgoHome />} />
-        <Route path="/notification" element={<Notification />} />
+        <Route path="/status" element={<VolunteerStatus/>} />
       </Routes>
       <Footer />
     </>
   );
-};
-
-export default App;
+}

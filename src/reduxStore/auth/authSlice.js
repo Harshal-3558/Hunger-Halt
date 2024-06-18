@@ -4,15 +4,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchAuthStatus = createAsyncThunk(
   "auth/fetchAuthStatus",
   async () => {
-    const response = await fetch(`${import.meta.env.VITE_HOST}/auth/authStatus`, {
-      method: "GET",
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_HOST}/auth/authStatus`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log(data);
     return data;
   }
 );

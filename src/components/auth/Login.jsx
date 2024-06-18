@@ -8,6 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { fetchAuthStatus } from "../../reduxStore/auth/authSlice";
 
 const schema = yup
   .object({
@@ -39,6 +41,7 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     try {
@@ -57,14 +60,16 @@ export default function Login() {
       if (response.ok) {
         toast.success("Login successful");
         const user = await response.json();
-        console.log(user.user.role);
-        if (user.user.role) {
-          if (user.user.role == "volunteer") navigate("/volunteer");
-          else if (user.user.role == "donor") navigate("/donor");
-          else if (user.user.role == "ngo") navigate("/ngo");
-        } else {
-          navigate("/selectrole");
-        }
+        dispatch(fetchAuthStatus());
+        setTimeout(() => {
+          if (user.user.role) {
+            if (user.user.role == "volunteer") navigate("/volunteer");
+            else if (user.user.role == "donor") navigate("/donor");
+            else if (user.user.role == "ngo") navigate("/ngo");
+          } else {
+            navigate("/selectrole");
+          }
+        }, [1000]);
       } else {
         toast.error("Invalid Credentials");
       }

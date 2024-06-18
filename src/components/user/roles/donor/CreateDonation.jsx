@@ -17,6 +17,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SubmitButton from "./SubmitButton";
+import { handleGetLocation, initializeMap } from "../../../../map/getLocation";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -30,62 +31,17 @@ export default function CreateDonation() {
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
-    if (location) {
-      const map = new mapboxgl.Map({
-        container: mapContainerRef.current,
-        style: "mapbox://styles/mapbox/streets-v11",
-        center: [location.longitude, location.latitude],
-        zoom: 12,
-      });
+    const removeMap = initializeMap(mapContainerRef, location);
 
-      new mapboxgl.Marker()
-        .setLngLat([location.longitude, location.latitude])
-        .addTo(map);
-
-      return () => map.remove();
-    }
+    return () => {
+      if (removeMap) removeMap();
+    };
   }, [location]);
-
-  const handleGetLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ latitude, longitude });
-          console.log(location);
-
-          // Fetch address using Mapbox API
-          try {
-            const response = await fetch(
-              `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${
-                import.meta.env.VITE_MAPBOX_API_KEY
-              }`
-            );
-            const data = await response.json();
-            if (data.features && data.features.length > 0) {
-              setAddress(data.features[0].place_name);
-            } else {
-              setAddress("Address not found");
-            }
-          } catch (error) {
-            console.error("Error fetching address:", error);
-            setAddress("Error fetching address");
-          }
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-        },
-        { enableHighAccuracy: true }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  };
 
   return (
     <div>
       <button
-        className="h-32 md:h-44 w-full md:w-[600px] bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
+        className="h-32 md:h-36 w-full md:w-[600px] bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
         onClick={onOpen}
       >
         <div>
@@ -137,7 +93,9 @@ export default function CreateDonation() {
               />
               <Button
                 marginTop={3}
-                onClick={handleGetLocation}
+                onClick={() => {
+                  handleGetLocation(setLocation, setAddress);
+                }}
                 colorScheme="teal"
                 mb={2}
               >
