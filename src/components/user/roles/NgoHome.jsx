@@ -10,7 +10,7 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 export default function NgoHome() {
   const [hungerSpots, setHungerSpots] = useState([]);
   const [location, setLocation] = useState({});
-  const { user, status } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const socket = io(`${import.meta.env.VITE_HOST}`, {
     withCredentials: true,
   });
@@ -74,7 +74,7 @@ export default function NgoHome() {
     // Add markers for each hunger spot
     hungerSpots.forEach((spot) => {
       new mapboxgl.Marker()
-        .setLngLat([spot.location.longitude, spot.location.latitude])
+        .setLngLat([spot.location.coordinates[0], spot.location.coordinates[1]])
         .setPopup(
           new mapboxgl.Popup().setHTML(
             `<h3 className="font-bold">${spot.name}</h3><p>${spot.address}</p>`
@@ -107,10 +107,6 @@ export default function NgoHome() {
       socket.off("newHungerSpot");
     };
   }, [socket]);
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
 
   if (user) {
     return (

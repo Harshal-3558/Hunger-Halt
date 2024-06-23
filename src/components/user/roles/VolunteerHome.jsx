@@ -4,16 +4,18 @@ import CreateHungerSpot from "./volunteer/CreateHungerSpot";
 import { useSelector } from "react-redux";
 import { useDisclosure } from "@chakra-ui/react";
 import LocationAlertDialog from "./volunteer/LocationAlertDialog";
+import DonorBadge from "./donor/DonorBadge";
+import VolunteerUpdates from "./volunteer/VolunteerUpdates";
+import CurrentWork from "./volunteer/CurrentWork";
 
 export default function VolunteerHome() {
-  const { user, status } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const socket = io(`${import.meta.env.VITE_HOST}`, {
     withCredentials: true,
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    // Check if the user's location is undefined or not set
     if (user && !user.currentLocation) {
       onOpen();
     }
@@ -27,7 +29,7 @@ export default function VolunteerHome() {
 
   useEffect(() => {
     socket.on("foodDonation", (data) => {
-      if (user?.role === "volunteer") {
+      if (user?.role === "volunteer" && user?.email === data.userEmail) {
         if (Notification.permission === "granted") {
           new Notification("New Food Donation", {
             body: `${data.foodName} donated by ${data.donorName}`,
@@ -36,26 +38,23 @@ export default function VolunteerHome() {
         }
       }
     });
-
     return () => {
       socket.off("foodDonation");
     };
-  }, [socket, user?.role]);
+  }, [socket, user]);
 
-  // Render a loading state if the status is "loading"
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  // Render the component only if the user object is available
   if (user) {
     return (
       <div>
         <div className="p-6 space-y-6">
           <h1 className="text-2xl font-semibold">Welcome, {user.name}</h1>
-          <div className="md:flex justify-between items-center space-y-2 md:space-y-0">
-            <CreateHungerSpot />
-            <div className="h-32 md:h-44 w-full md:w-[600px] bg-slate-200 border rounded-xl"></div>
+          <CurrentWork user={user}/>
+          <div className="md:flex justify-between space-y-2 md:space-y-0">
+            <div className="flex flex-col justify-between">
+              <CreateHungerSpot />
+              <DonorBadge />
+            </div>
+            <VolunteerUpdates user={user} />
             <LocationAlertDialog isOpen={isOpen} onClose={onClose} />
           </div>
         </div>
@@ -63,6 +62,5 @@ export default function VolunteerHome() {
     );
   }
 
-  // Render a fallback UI if the user object is not available
   return <div>Error loading user data.</div>;
 }

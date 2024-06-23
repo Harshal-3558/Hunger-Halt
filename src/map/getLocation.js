@@ -4,7 +4,7 @@ export function handleGetLocation(setLocation, setAddress) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        setLocation({ latitude, longitude });
+        setLocation({ longitude, latitude });
         console.log(location);
 
         // Fetch address using Mapbox API
