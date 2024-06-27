@@ -8,6 +8,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useRef } from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 export default function LocationAlertDialog({ isOpen, onClose }) {
   const cancelRef = useRef();
@@ -49,10 +51,7 @@ export default function LocationAlertDialog({ isOpen, onClose }) {
   );
 }
 
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-
 LocationAlertDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };

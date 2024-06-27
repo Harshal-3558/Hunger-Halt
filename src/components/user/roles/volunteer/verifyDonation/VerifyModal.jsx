@@ -9,17 +9,16 @@ import {
   useDisclosure,
   Button,
   Input,
-  FormLabel,
   FormControl,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaCircleCheck } from "react-icons/fa6";
 
-export default function VerifyModal({ id }) {
+export default function VerifyModal({ id, onVerified }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [shelfLife, setShelfLife] = useState(0);
-  const [foodQualityStatus, setFoodQualityStatus] = useState("");
   async function handleSubmit() {
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/user/verifyFood`,
@@ -28,11 +27,15 @@ export default function VerifyModal({ id }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, shelfLife, foodQualityStatus }),
+        body: JSON.stringify({ id, shelfLife, foodQualityStatus: "verified" }),
       }
     );
-    const data = await response.json();
-    console.log(data);
+    if (response.ok) {
+      toast.success("Verification completed");
+    } else {
+      toast.error("Something went wrong");
+    }
+    onVerified();
   }
   return (
     <>
@@ -47,23 +50,16 @@ export default function VerifyModal({ id }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Verify Food Quality</ModalHeader>
+          <ModalHeader>Verify Food Shelf Life</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
-              <FormLabel>Shelf Life</FormLabel>
               <Input
                 type="number"
                 onChange={(e) => {
                   setShelfLife(e.target.value);
                 }}
-                placeholder="in hours"
-              />
-              <Input
-                onChange={(e) => {
-                  setFoodQualityStatus(e.target.value);
-                }}
-                placeholder="in hours"
+                placeholder="e.g 1 hr"
               />
             </FormControl>
           </ModalBody>
@@ -80,4 +76,5 @@ export default function VerifyModal({ id }) {
 
 VerifyModal.propTypes = {
   id: PropTypes.string,
+  onVerified: PropTypes.func,
 };

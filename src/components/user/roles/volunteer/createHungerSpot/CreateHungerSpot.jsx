@@ -17,7 +17,10 @@ import { FaCirclePlus } from "react-icons/fa6";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SubmitButton from "./SubmitButton";
-import { handleGetLocation, initializeMap } from "../../../../map/getLocation";
+import {
+  handleGetLocation,
+  initializeMap,
+} from "../../../../../map/getLocation";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -26,7 +29,7 @@ export default function CreateHungerSpot() {
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState("");
   const [image, setImage] = useState("");
-  const [qty, setQty] = useState("");
+  const [qty, setQty] = useState(0);
   const mapContainerRef = useRef(null);
 
   useEffect(() => {

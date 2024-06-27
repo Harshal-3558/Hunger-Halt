@@ -11,7 +11,8 @@ import Hero from "./components/Hero";
 import VolunteerHome from "./components/user/roles/VolunteerHome";
 import DonorHome from "./components/user/roles/DonorHome";
 import NgoHome from "./components/user/roles/NgoHome";
-import VolunteerStatus from "./components/user/roles/volunteer/VolunteerStatus";
+import VolunteerStatus from "./components/user/roles/volunteer/status/VolunteerStatus";
+// import { setupFCMListener } from "./firebase/fcmSetup";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ export default function App() {
   }, [dispatch]);
 
   const { user } = useSelector((state) => state.auth);
+
+  // useEffect(() => {
+  //   setupFCMListener();
+  // }, [user]);
 
   useEffect(() => {
     if (user) {
@@ -55,7 +60,7 @@ export default function App() {
         <Route path="/volunteer" element={<VolunteerHome />} />
         <Route path="/donor" element={<DonorHome />} />
         <Route path="/ngo" element={<NgoHome />} />
-        <Route path="/status" element={<VolunteerStatus/>} />
+        <Route path="/status" element={<VolunteerStatus />} />
       </Routes>
       <Footer />
     </>

@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import GoogleButton from "./GoogleButton";
 import GithubButton from "./GithubButton";
 import PasswordInput from "./PasswordInput";
@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { fetchAuthStatus } from "../../reduxStore/auth/authSlice";
+import { requestFCMPermission } from "../../firebase/fcmSetup";
 
 const schema = yup
   .object({
@@ -42,6 +42,7 @@ export default function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const onSubmit = async (data) => {
     try {
@@ -58,8 +59,25 @@ export default function Login() {
       });
 
       if (response.ok) {
-        toast.success("Login successful");
+        toast({
+          title: "Login Successful",
+          status: "success",
+          position: "top",
+          duration: 1000,
+        });
         const user = await response.json();
+        console.log(user);
+        const token = await requestFCMPermission();
+        await fetch(`${import.meta.env.VITE_HOST}/user/updateFCM`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.user.email,
+            token,
+          }),
+        });
         dispatch(fetchAuthStatus());
         setTimeout(() => {
           if (user.user.role) {
@@ -71,11 +89,20 @@ export default function Login() {
           }
         }, [1000]);
       } else {
-        toast.error("Invalid Credentials");
+        toast({
+          title: "Invalid Credentials",
+          status: "error",
+          position: "top",
+          duration: 1000,
+        });
       }
     } catch (error) {
-      toast.error("Network error");
-      console.error("Network error:", error);
+      toast({
+        title: "Network error",
+        status: "error",
+        position: "top",
+        duration: 1000,
+      });
     }
   };
 

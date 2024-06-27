@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Checkbox, Input } from "@chakra-ui/react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { fetchAuthStatus } from "../../../../reduxStore/auth/authSlice";
+import { fetchAuthStatus } from "../../../../../reduxStore/auth/authSlice";
 import { FaLocationArrow } from "react-icons/fa6";
 
 const mapboxToken =
