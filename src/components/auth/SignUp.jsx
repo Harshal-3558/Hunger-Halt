@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import GoogleButton from "./GoogleButton";
 import GithubButton from "./GithubButton";
 import PasswordInput from "./PasswordInput";
@@ -8,7 +8,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import NameInput from "./NameInput";
-import toast from "react-hot-toast";
 
 const schema = yup
   .object({
@@ -41,6 +40,7 @@ export default function SignUp() {
   });
 
   const navigate = useNavigate();
+  const toast = useToast();
 
   const onSubmit = async (data) => {
     try {
@@ -57,14 +57,28 @@ export default function SignUp() {
       });
 
       if (response.ok) {
-        toast.success("Account Created");
+        toast({
+          title: "Account Created Successful",
+          status: "success",
+          position: "top",
+          duration: 1000,
+        });
         navigate("/login");
       } else {
-        toast.error("Something went worng");
+        toast({
+          title: "Something went wrong",
+          status: "error",
+          position: "top",
+          duration: 1000,
+        });
       }
     } catch (error) {
-      toast.error("Network error");
-      console.error("Network error:", error);
+      toast({
+        title: "Network error",
+        status: "error",
+        position: "top",
+        duration: 1000,
+      });
     }
   };
 

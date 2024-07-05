@@ -8,9 +8,10 @@ import CompleteDonationModal from "./CompleteDonationModal";
 CompleteDonationButton.propTypes = {
   id: PropTypes.string,
   beneficiaryNO: PropTypes.number,
+  close: PropTypes.func,
 };
 
-export default function CompleteDonationButton({ id, beneficiaryNO }) {
+export default function CompleteDonationButton({ id, beneficiaryNO, close }) {
   const [location, setLocation] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -22,15 +23,17 @@ export default function CompleteDonationButton({ id, beneficiaryNO }) {
         (position) => {
           const { longitude, latitude } = position.coords;
           setLocation({ longitude, latitude });
+          console.log(location)
         },
         (error) => {
           console.error("Error fetching location: ", error);
         }
       );
     }
-  }, [location]);
+  }, []);
 
   async function handleSubmit() {
+    console.log(location);
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/user/checkBeforeDonation`,
       {
@@ -61,13 +64,18 @@ export default function CompleteDonationButton({ id, beneficiaryNO }) {
 
   return (
     <div>
-      <div className="space-x-3">
-        <Button leftIcon={<FaLocationDot size={20} />} colorScheme="green">
+      <div className="flex space-x-2 md:space-x-3">
+        <Button
+          leftIcon={<FaLocationDot className="text-lg md:text-2xl" />}
+          colorScheme="green"
+        >
           Get Directions
         </Button>
         <Button
-          onClick={handleSubmit}
-          leftIcon={<FaCircleCheck size={20} />}
+          onClick={() => {
+            handleSubmit();
+          }}
+          leftIcon={<FaCircleCheck className="text-lg md:text-2xl" />}
           colorScheme="blue"
         >
           Complete Donation

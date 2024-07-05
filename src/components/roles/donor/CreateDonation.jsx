@@ -17,7 +17,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SubmitButton from "./SubmitButton";
-import { handleGetLocation, initializeMap } from "../../../../map/getLocation";
+import { handleGetLocation, initializeMap } from "../../../map/getLocation";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -27,6 +27,7 @@ export default function CreateDonation() {
   const [address, setAddress] = useState("");
   const [foodName, setFoodName] = useState("");
   const [qty, setQty] = useState("");
+  const [person, setPerson] = useState("");
   const [shelfLife, setShelfLife] = useState("");
   const mapContainerRef = useRef(null);
 
@@ -48,11 +49,15 @@ export default function CreateDonation() {
           <FaCirclePlus className="text-[30px]" />
         </div>
         <div>
-          <p className="text-xl">Create your new donation</p>
+          <p className="text-lg md:text-xl">Create your new donation</p>
         </div>
       </button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={"3xl"}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size={{ base: "full", md: "3xl" }}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Enter food details</ModalHeader>
@@ -73,6 +78,15 @@ export default function CreateDonation() {
                 placeholder="in kg"
                 value={qty}
                 onChange={(e) => setQty(e.target.value)}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>No. of Beneficiary can be fullfilled</FormLabel>
+              <Input
+                type="number"
+                placeholder="persons"
+                value={person}
+                onChange={(e) => setPerson(e.target.value)}
               />
             </FormControl>
             <FormControl mt={4}>
@@ -106,11 +120,7 @@ export default function CreateDonation() {
               {location && (
                 <div
                   ref={mapContainerRef}
-                  style={{
-                    height: "300px",
-                    width: "100%",
-                    borderRadius: "10px",
-                  }}
+                  className="h-64 md:h-[300px] w-full rounded-xl"
                 ></div>
               )}
             </div>
@@ -123,6 +133,7 @@ export default function CreateDonation() {
               foodName={foodName}
               qty={qty}
               shelfLife={shelfLife}
+              person={person}
               onClose={onClose}
             />
             <Button onClick={onClose}>Cancel</Button>

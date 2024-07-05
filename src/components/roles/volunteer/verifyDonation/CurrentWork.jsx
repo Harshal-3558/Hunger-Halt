@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import PropTypes from "prop-types";
 import VerifyModal from "./VerifyModal";
+import { io } from "socket.io-client";
 
 export default function CurrentWork({ user }) {
   const [work, setWork] = useState(null);
-  const [refresh, setRefresh] = useState(false);
+  const socket = io(`${import.meta.env.VITE_HOST}`, {
+    withCredentials: true,
+  });
 
   async function handleData() {
     const response = await fetch(
@@ -27,7 +30,18 @@ export default function CurrentWork({ user }) {
 
   useEffect(() => {
     handleData();
-  }, [refresh]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    socket.on("FoodDBChange", () => {
+      handleData();
+    });
+    return () => {
+      socket.off("FoodDBChange");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -35,26 +49,24 @@ export default function CurrentWork({ user }) {
         work
           .filter((items) => items.foodQualityStatus === "not verified")
           .map((items) => (
-            <div key={items._id} className="bg-gray-300 w-full p-2 rounded-lg">
+            <div key={items._id} className="bg-gray-200 w-full p-3 rounded-lg">
               {" "}
-              {/* Ensure key is unique, using items._id */}
-              <h1 className="text-2xl font-semibold">Your current work</h1>
-              <div className="flex justify-between items-center">
-                <div>
+              <h1 className="text-lg md:text-2xl font-semibold">
+                Your current work
+              </h1>
+              <div className="md:flex justify-between items-center space-y-2">
+                <div className="text-sm md:text-base">
                   <span className="font-medium">Location to be visited : </span>
                   <span>{items.address}</span>
                 </div>
-                <div className="space-x-2">
+                <div className="flex justify-center md:block space-x-2">
                   <Button
                     colorScheme="blue"
-                    leftIcon={<FaLocationDot size={20} />}
+                    leftIcon={<FaLocationDot className="text-lg md:text-2xl" />}
                   >
                     Get Directions
                   </Button>
-                  <VerifyModal
-                    id={items._id}
-                    onVerified={() => setRefresh(!refresh)}
-                  />
+                  <VerifyModal id={items._id} />
                 </div>
               </div>
             </div>

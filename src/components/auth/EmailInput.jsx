@@ -29,6 +29,6 @@ export default function EmailInput({ register, errors }) {
 }
 
 EmailInput.propTypes = {
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired,
+  register: PropTypes.object,
+  errors: PropTypes.object,
 };

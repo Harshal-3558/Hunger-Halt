@@ -27,6 +27,6 @@ export default function NameInput({ register, errors }) {
 }
 
 NameInput.propTypes = {
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired,
+  register: PropTypes.object,
+  errors: PropTypes.object,
 };

@@ -4,7 +4,7 @@ export function handleGetLocation(setLocation, setAddress) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        setLocation({ longitude, latitude });
+        setLocation([longitude, latitude]);
         console.log(location);
 
         // Fetch address using Mapbox API
@@ -40,13 +40,11 @@ export function initializeMap(mapContainerRef, location) {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [location.longitude, location.latitude],
+      center: [location[0], location[1]],
       zoom: 12,
     });
 
-    new mapboxgl.Marker()
-      .setLngLat([location.longitude, location.latitude])
-      .addTo(map);
+    new mapboxgl.Marker().setLngLat([location[0], location[1]]).addTo(map);
 
     return () => map.remove();
   }

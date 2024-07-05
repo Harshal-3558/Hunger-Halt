@@ -42,6 +42,6 @@ export default function PasswordInput({ register, errors }) {
 }
 
 PasswordInput.propTypes = {
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.func.isRequired,
+  register: PropTypes.object,
+  errors: PropTypes.object,
 };

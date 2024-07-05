@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { Link } from "react-router-dom";
+import Loader from "../Loader";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -137,5 +138,9 @@ export default function NgoHome() {
     );
   }
 
-  return <div>Error loading user data.</div>;
+  return (
+    <div>
+      <Loader />
+    </div>
+  );
 }

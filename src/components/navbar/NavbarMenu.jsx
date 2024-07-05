@@ -1,5 +1,11 @@
-import { Avatar, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import toast from "react-hot-toast";
+import {
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useToast,
+} from "@chakra-ui/react";
 import { FaRightFromBracket, FaUser } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +14,7 @@ import { fetchAuthStatus } from "../../reduxStore/auth/authSlice";
 export default function NavbarMenu() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   async function onSubmit() {
     const response = await fetch(`${import.meta.env.VITE_HOST}/auth/logout`, {
@@ -15,13 +22,21 @@ export default function NavbarMenu() {
       credentials: "include", // Include cookies in the request
     });
     if (response.ok) {
-      toast.success("Successfully logged out");
+      toast({
+        title: "Successfully logged out",
+        status: "success",
+        position: "top",
+      });
       dispatch(fetchAuthStatus());
       setTimeout(() => {
         navigate("/");
       }, 1000);
     } else {
-      toast.error("Something went wrong");
+      toast({
+        title: "Something went wrong",
+        status: "error",
+        position: "top",
+      });
     }
   }
   return (

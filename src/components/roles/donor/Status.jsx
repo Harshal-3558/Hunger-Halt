@@ -7,12 +7,9 @@ export default function Status({ updates }) {
       {updates === "not verified" && (
         <Badge colorScheme="purple">Not Verified</Badge>
       )}
-      {updates === "verified" && (
-        <Badge colorScheme="green">Verified</Badge>
-      )}
-      {updates === "pending" && (
-        <Badge colorScheme="red">Pending</Badge>
-      )}
+      {updates === "verified" && <Badge colorScheme="green">Verified</Badge>}
+      {updates === "pending" && <Badge colorScheme="red">Pending</Badge>}
+      {updates === "donated" && <Badge colorScheme="green">Donated</Badge>}
     </div>
   );
 }

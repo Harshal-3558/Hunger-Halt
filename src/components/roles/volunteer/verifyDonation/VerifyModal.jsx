@@ -16,9 +16,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaCircleCheck } from "react-icons/fa6";
 
-export default function VerifyModal({ id, onVerified }) {
+export default function VerifyModal({ id }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [shelfLife, setShelfLife] = useState(0);
+
   async function handleSubmit() {
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/user/verifyFood`,
@@ -35,21 +36,21 @@ export default function VerifyModal({ id, onVerified }) {
     } else {
       toast.error("Something went wrong");
     }
-    onVerified();
   }
+
   return (
     <>
       <Button
         colorScheme="green"
         onClick={onOpen}
-        leftIcon={<FaCircleCheck size={20} />}
+        leftIcon={<FaCircleCheck className="text-lg md:text-2xl" />}
       >
-        Proceed for Verification
+        Verify Donation
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxWidth="500px" width="95%">
           <ModalHeader>Verify Food Shelf Life</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -76,5 +77,4 @@ export default function VerifyModal({ id, onVerified }) {
 
 VerifyModal.propTypes = {
   id: PropTypes.string,
-  onVerified: PropTypes.func,
 };

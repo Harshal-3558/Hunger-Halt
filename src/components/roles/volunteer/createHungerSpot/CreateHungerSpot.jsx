@@ -20,7 +20,7 @@ import SubmitButton from "./SubmitButton";
 import {
   handleGetLocation,
   initializeMap,
-} from "../../../../../map/getLocation";
+} from "../../../../map/getLocation";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -68,20 +68,20 @@ export default function CreateHungerSpot() {
     <div>
       <div>
         <button
-          className="h-32 md:h-44 w-full md:w-[600px] bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
+          className="h-32 md:h-44 w-[185px] md:w-[600px] bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-2 md:space-y-3"
           onClick={onOpen}
         >
           <div>
             <FaCirclePlus className="text-[30px]" />
           </div>
           <div>
-            <p className="text-xl">Create new Hunger Spot</p>
+            <p className="text-sm md:text-xl">Create new Hunger Spot</p>
           </div>
         </button>
 
-        <Modal isOpen={isOpen} onClose={onClose} size={"3xl"}>
+        <Modal isOpen={isOpen} onClose={onClose} size={"3xl"} isCentered={true}>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent maxWidth="500px" width="95%">
             <ModalHeader>Enter Hunger Spot details</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
@@ -102,17 +102,6 @@ export default function CreateHungerSpot() {
                   type="file"
                   className="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-700 file:disabled:opacity-50 file:disabled:pointer-events-none"
                 />
-                {image && (
-                  <img
-                    src={image}
-                    alt="Uploaded"
-                    style={{
-                      width: "30%",
-                      marginTop: "20px",
-                      borderRadius: "10px",
-                    }}
-                  />
-                )}
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Current Location</FormLabel>
@@ -136,11 +125,7 @@ export default function CreateHungerSpot() {
                 {location && (
                   <div
                     ref={mapContainerRef}
-                    style={{
-                      height: "300px",
-                      width: "100%",
-                      borderRadius: "10px",
-                    }}
+                    className="h-44 md:h-80 rounded-lg w-full"
                   ></div>
                 )}
               </div>

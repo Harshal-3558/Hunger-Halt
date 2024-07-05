@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, IconButton } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { FaRightToBracket } from "react-icons/fa6";
 import SideBar from "./navbar/SideBar";
@@ -50,25 +50,32 @@ export default function Navbar() {
           </div>
 
           {/* Login Button & Avatar */}
-        <div>
-          {user ? (
-            <div>
-              <NavbarMenu />
-            </div>
-          ) : (
-            <div className="block">
-              <Link to="/login">
-                <Button
-                  rightIcon={<FaRightToBracket size={20} />}
-                  colorScheme="teal"
-                  variant="solid"
-                >
-                  Login
-                </Button>
-              </Link>
-            </div>
-          )}
-        </div>
+          <div>
+            {user ? (
+              <div>
+                <NavbarMenu />
+              </div>
+            ) : (
+              <div>
+                <Link className="hidden md:block" to="/login">
+                  <Button
+                    rightIcon={<FaRightToBracket size={20} />}
+                    colorScheme="teal"
+                    variant="solid"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link className="md:hidden" to="/login">
+                  <IconButton
+                    icon={<FaRightToBracket size={20} />}
+                    colorScheme="teal"
+                    variant="solid"
+                  />
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

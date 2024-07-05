@@ -49,9 +49,9 @@ export default function CompleteDonationModal({
   }
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered={true}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxWidth="500px" width="95%">
           <ModalHeader>Complete Donation Process</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

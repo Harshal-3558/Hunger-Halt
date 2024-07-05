@@ -1,6 +1,5 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 export default function SubmitButton({
@@ -9,9 +8,11 @@ export default function SubmitButton({
   foodName,
   qty,
   shelfLife,
+  person,
   onClose,
 }) {
   const user = useSelector((state) => state.auth.user);
+  const toast = useToast();
 
   async function handleFunction() {
     const response = await fetch(
@@ -25,6 +26,7 @@ export default function SubmitButton({
           foodName,
           donorName: user.name,
           donorEmail: user.email,
+          beneficiary: person,
           qty,
           shelfLife,
           location,
@@ -34,9 +36,18 @@ export default function SubmitButton({
     );
 
     if (response.ok) {
-      toast.success("Your food donation added");
+      toast({
+        title: "Your donation created successful",
+        description: "Our volunteer will visit to pick up",
+        status: "success",
+        position: "top",
+      });
     } else {
-      toast.error("Something went wrong");
+      toast({
+        title: "Something went wrong",
+        status: "error",
+        position: "top",
+      });
     }
   }
   return (
@@ -57,9 +68,10 @@ export default function SubmitButton({
 
 SubmitButton.propTypes = {
   location: PropTypes.object,
-  address: PropTypes.string.isRequired,
-  foodName: PropTypes.string.isRequired,
-  qty: PropTypes.string.isRequired,
-  shelfLife: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
+  address: PropTypes.string,
+  foodName: PropTypes.string,
+  qty: PropTypes.string,
+  shelfLife: PropTypes.string,
+  person: PropTypes.string,
+  onClose: PropTypes.func,
 };

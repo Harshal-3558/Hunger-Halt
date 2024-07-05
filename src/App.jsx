@@ -6,13 +6,12 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
-import SelectRole from "./components/user/SelectRole";
 import Hero from "./components/Hero";
-import VolunteerHome from "./components/user/roles/VolunteerHome";
-import DonorHome from "./components/user/roles/DonorHome";
-import NgoHome from "./components/user/roles/NgoHome";
-import VolunteerStatus from "./components/user/roles/volunteer/status/VolunteerStatus";
-// import { setupFCMListener } from "./firebase/fcmSetup";
+import DonorHome from "./components/roles/DonorHome";
+import VolunteerHome from "./components/roles/VolunteerHome"
+import NgoHome from "./components/roles/NgoHome";
+import AllUpdatesPage from "./components/roles/donor/AllUpdatesPage";
+import Selectrole from "./components/auth/SelectRole";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -24,10 +23,6 @@ export default function App() {
   }, [dispatch]);
 
   const { user } = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  //   setupFCMListener();
-  // }, [user]);
 
   useEffect(() => {
     if (user) {
@@ -56,11 +51,11 @@ export default function App() {
         <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/selectrole" element={<SelectRole />} />
+        <Route path="/selectrole" element={<Selectrole />} />
         <Route path="/volunteer" element={<VolunteerHome />} />
         <Route path="/donor" element={<DonorHome />} />
         <Route path="/ngo" element={<NgoHome />} />
-        <Route path="/status" element={<VolunteerStatus />} />
+        <Route path="/donorUpdates" element={<AllUpdatesPage />} />
       </Routes>
       <Footer />
     </>
