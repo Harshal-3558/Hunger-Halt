@@ -1,6 +1,5 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 export default function SubmitButton({
@@ -11,6 +10,7 @@ export default function SubmitButton({
   requiredQTY,
 }) {
   const user = useSelector((state) => state.auth.user);
+  const toast = useToast();
 
   async function handleFunction() {
     const response = await fetch(
@@ -32,9 +32,17 @@ export default function SubmitButton({
     );
 
     if (response.ok) {
-      toast.success("New Hunger Spot Registered");
+      toast({
+        title: "New Hunger Spot Registered",
+        status: "success",
+        position: "top",
+      });
     } else {
-      toast.error("Something went wrong");
+      toast({
+        title: "Something went wrong",
+        status: "error",
+        position: "top",
+      });
     }
   }
   return (
