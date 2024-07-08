@@ -6,9 +6,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
-import Hero from "./components/Hero";
+import Home from "./components/Home";
 import DonorHome from "./components/roles/DonorHome";
-import VolunteerHome from "./components/roles/VolunteerHome"
+import VolunteerHome from "./components/roles/VolunteerHome";
 import NgoHome from "./components/roles/NgoHome";
 import AllUpdatesPage from "./components/roles/donor/AllUpdatesPage";
 import Selectrole from "./components/auth/SelectRole";
@@ -48,7 +48,7 @@ export default function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Hero />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/selectrole" element={<Selectrole />} />

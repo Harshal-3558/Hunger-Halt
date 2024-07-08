@@ -1,3 +1,4 @@
+import { Image } from "@chakra-ui/image";
 import { FaGithub, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -6,10 +7,12 @@ export default function Footer() {
     <footer className="bg-white border-t-2">
       <div className="container px-6 py-8 mx-auto">
         <div className="flex flex-col items-center text-center">
-          <h1 className="text-4xl h-12 font-bold bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">
-            Hunger Halt
-          </h1>
-
+          <div className="flex flex-row items-center space-x-2">
+            <Image height={"37px"} src="/hunger1.png" alt="Dan Abramov" />
+            <h1 className="text-4xl h-12 font-bold bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">
+              Hunger Halt
+            </h1>
+          </div>
           <div className="flex flex-wrap text-gray-500 justify-center mt-6 -mx-4 space-x-6">
             <Link
               to={"/"}

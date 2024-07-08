@@ -1,6 +1,6 @@
-import { Button, IconButton } from "@chakra-ui/react";
+import { Button, IconButton, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { FaRightToBracket } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
 import SideBar from "./navbar/SideBar";
 import NavbarMenu from "./navbar/NavbarMenu";
 import { useSelector } from "react-redux";
@@ -16,9 +16,12 @@ export default function Navbar() {
         </div>
 
         {/* Brand Logo */}
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">
-          Hunger Halt
-        </h1>
+        <div className="flex items-center justify-center space-x-2">
+          <Image height={"30px"} src="/hunger1.png" alt="Dan Abramov" />
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">
+            Hunger Halt
+          </h1>
+        </div>
 
         {/* Navigation Links */}
         <div className="space-x-5 items-center flex">
@@ -39,13 +42,7 @@ export default function Navbar() {
               to={"/notification"}
               className="hover:text-teal-500 transition ease-in duration-200"
             >
-              Contact Us
-            </Link>
-            <Link
-              to={"/"}
-              className="hover:text-teal-500 transition ease-in duration-200"
-            >
-              Services
+              Our Team
             </Link>
           </div>
 
@@ -59,16 +56,16 @@ export default function Navbar() {
               <div>
                 <Link className="hidden md:block" to="/login">
                   <Button
-                    rightIcon={<FaRightToBracket size={20} />}
+                    rightIcon={<FaHeart size={20} />}
                     colorScheme="teal"
                     variant="solid"
                   >
-                    Login
+                    Donate Now
                   </Button>
                 </Link>
                 <Link className="md:hidden" to="/login">
                   <IconButton
-                    icon={<FaRightToBracket size={20} />}
+                    icon={<FaHeart size={20} />}
                     colorScheme="teal"
                     variant="solid"
                   />

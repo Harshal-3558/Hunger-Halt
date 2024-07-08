@@ -48,7 +48,7 @@ export default function SelectRole() {
         position: "top",
         duration: 1000,
       });
-      navigate("/");
+      navigate(`/${role}`);
     } else {
       toast({
         title: "Something went wrong",
