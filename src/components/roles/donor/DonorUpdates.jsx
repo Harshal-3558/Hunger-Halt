@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Button } from "@chakra-ui/react";
 import DonationDetails from "./DonationDetails";
-import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 
 export default function DonorUpdates({ user }) {
@@ -54,7 +52,7 @@ export default function DonorUpdates({ user }) {
       <h1 className="text-xl md:text-2xl font-semibold">
         Your Recent Donation Updates
       </h1>
-      <div className="space-y-2 h-[235px] md:h-[290px] overflow-auto">
+      <div className="space-y-4 h-[235px] md:h-[290px] overflow-auto">
         {updates.length != 0 ? (
           updates.map((item) => <DonationDetails key={item._id} item={item} />)
         ) : (
@@ -63,11 +61,6 @@ export default function DonorUpdates({ user }) {
           </div>
         )}
       </div>
-      {updates.length != 0 && (
-        <Link to={"/donorUpdates"} className="flex justify-end">
-          <Button colorScheme="blue">View all</Button>
-        </Link>
-      )}
     </div>
   );
 }

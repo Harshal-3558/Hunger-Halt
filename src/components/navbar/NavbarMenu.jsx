@@ -39,6 +39,7 @@ export default function NavbarMenu() {
       });
     }
   }
+  
   return (
     <Menu>
       <MenuButton

@@ -11,16 +11,20 @@ import {
 import { useRef } from "react";
 import {
   FaBars,
+  FaChartSimple,
+  FaClockRotateLeft,
   FaGear,
-  FaHandHoldingHeart,
   FaHouse,
   FaRightFromBracket,
 } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 
 export default function SideBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef()
+  const user = useSelector((state) => state.auth.user);
+  const btnRef = useRef();
+  const location = useLocation();
 
   return (
     <>
@@ -47,28 +51,79 @@ export default function SideBar() {
             >
               Home
             </Button>
-            <Button
-              as={Link}
-              to="/"
-              w="full"
-              justifyContent="left"
-              leftIcon={<FaGear size={20} />}
-              marginBottom={2}
-              onClick={onClose}
-            >
-              Account Settings
-            </Button>
-            <Button
-              as={Link}
-              to="/"
-              w="full"
-              justifyContent="left"
-              leftIcon={<FaHandHoldingHeart size={20} />}
-              marginBottom={2}
-              onClick={onClose}
-            >
-              Your Donations
-            </Button>
+
+            {!user && (
+              <Button
+                as={Link}
+                to="/profile"
+                w="full"
+                justifyContent="left"
+                leftIcon={<FaGear size={20} />}
+                marginBottom={2}
+                onClick={onClose}
+              >
+                Profile Settings
+              </Button>
+            )}
+
+            {user && (
+              <Button
+                as={Link}
+                to="/profile"
+                w="full"
+                justifyContent="left"
+                leftIcon={<FaGear size={20} />}
+                marginBottom={2}
+                onClick={onClose}
+              >
+                Profile Settings
+              </Button>
+            )}
+
+            {user?.role === "donor" && location.pathname === "/donor" && (
+              <div>
+                <Button
+                  as={Link}
+                  to="/donationHistory"
+                  w="full"
+                  justifyContent="left"
+                  leftIcon={<FaClockRotateLeft size={20} />}
+                  marginBottom={2}
+                  onClick={onClose}
+                >
+                  Donations History
+                </Button>
+                <Button
+                  as={Link}
+                  to="/donationHistory"
+                  w="full"
+                  justifyContent="left"
+                  leftIcon={<FaChartSimple size={20} />}
+                  marginBottom={2}
+                  onClick={onClose}
+                >
+                  Donations Stats
+                </Button>
+              </div>
+            )}
+
+            {user?.role === "volunteer" &&
+              location.pathname === "/volunteer" && (
+                <div>
+                  <Button
+                    as={Link}
+                    to="/donationHistory"
+                    w="full"
+                    justifyContent="left"
+                    leftIcon={<FaChartSimple size={20} />}
+                    marginBottom={2}
+                    onClick={onClose}
+                  >
+                    Your Contributions
+                  </Button>
+                </div>
+              )}
+
             <Button
               as={Link}
               to="/logout"

@@ -1,6 +1,24 @@
 import { Button } from "@chakra-ui/react";
 import { FaArrowRight, FaCircleCheck } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import heroImage from "/hero-min.jpg";
+import img6 from "/img6.jpeg";
+import img8 from "/img8.jpeg";
+import img7 from "/img7.jpeg";
+import img5 from "/img5.jpeg";
+import img2 from "/img2.jpeg";
+import img3 from "/img3.jpeg";
+import img4 from "/img4.jpeg";
+import logo1 from "/logo1.png";
+import logo2 from "/logo2.png";
+import logo3 from "/logo3.png";
+import logo4 from "/logo4.png";
+import logo5 from "/logo5.png";
+import logo6 from "/logo6.png";
+import logo7 from "/logo7.png";
+import logo8 from "/logo8.png";
+import logo9 from "/logo9.png";
+import logo10 from "/logo10.png";
 
 export default function Home() {
   return (
@@ -9,7 +27,7 @@ export default function Home() {
       <div className="h-[500px] md:h-[600px] relative">
         <div className="absolute w-full h-full">
           <img
-            src="/hero.jpg"
+            src={heroImage}
             alt="Background Image"
             className="w-full h-full object-cover object-top"
           />
@@ -31,11 +49,14 @@ export default function Home() {
             </h2>
           </div>
           <div>
-            <Link to={"/signup"}>
-              <Button rightIcon={<FaArrowRight />} size="lg">
-                Join Our Network
-              </Button>
-            </Link>
+            <Button
+              as={Link}
+              to={"/signup"}
+              rightIcon={<FaArrowRight />}
+              size="lg"
+            >
+              Join Our Network
+            </Button>
           </div>
         </div>
       </div>
@@ -89,26 +110,10 @@ export default function Home() {
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-10 mx-auto">
           <div className="md:grid md:grid-cols-2 md:items-center md:gap-10">
             <div className="grid grid-cols-2 gap-4">
-              <img
-                className="rounded-xl"
-                src="/img6.jpeg"
-                alt="Image Description"
-              />
-              <img
-                className="rounded-xl"
-                src="/img8.jpeg"
-                alt="Image Description"
-              />
-              <img
-                className="rounded-xl"
-                src="/img7.jpeg"
-                alt="Image Description"
-              />
-              <img
-                className="rounded-xl"
-                src="/img5.jpeg"
-                alt="Image Description"
-              />
+              <img className="rounded-xl" src={img6} alt="Image Description" />
+              <img className="rounded-xl" src={img7} alt="Image Description" />
+              <img className="rounded-xl" src={img8} alt="Image Description" />
+              <img className="rounded-xl" src={img5} alt="Image Description" />
             </div>
             <div className="mt-5 sm:mt-10 lg:mt-0">
               <div className="space-y-6 sm:space-y-8">
@@ -174,7 +179,7 @@ export default function Home() {
             <div className="aspect-w-16 aspect-h-10">
               <img
                 className="w-full object-cover rounded-xl"
-                src="/img2.jpeg"
+                src={img2}
                 alt="Image Description"
               />
             </div>
@@ -186,7 +191,7 @@ export default function Home() {
             <div className="aspect-w-16 aspect-h-10">
               <img
                 className="w-full object-cover rounded-xl"
-                src="/img3.jpeg"
+                src={img3}
                 alt="Image Description"
               />
             </div>
@@ -198,7 +203,7 @@ export default function Home() {
             <div className="aspect-w-16 aspect-h-10">
               <img
                 className="w-full object-cover rounded-xl"
-                src="/img4.jpeg"
+                src={img4}
                 alt="Image Description"
               />
             </div>
@@ -218,34 +223,34 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 lg:gap-6">
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo1.png" />
+            <img src={logo1} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo2.png" />
+            <img src={logo2} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo3.png" />
+            <img src={logo3} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo4.png" />
+            <img src={logo4} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo5.png" />
+            <img src={logo5} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo6.png" />
+            <img src={logo6} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo7.png" />
+            <img src={logo7} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo8.png" />
+            <img src={logo8} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo9.png" />
+            <img src={logo9} />
           </div>
           <div className="p-4 md:p-7 bg-gray-100 rounded-lg flex items-center justify-center">
-            <img src="/logo10.png" />
+            <img src={logo10} />
           </div>
         </div>
       </div>
