@@ -18,7 +18,7 @@ export default function Navbar() {
 
         {/* Brand Logo */}
         <div className="flex items-center justify-center space-x-2">
-          <Image height={"30px"} src="/hunger1.png" alt="Dan Abramov" />
+          <Image height={"30px"} src="/images/hunger1.png" alt="Dan Abramov" />
           <h1 className="text-2xl font-bold bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">
             Hunger Halt
           </h1>

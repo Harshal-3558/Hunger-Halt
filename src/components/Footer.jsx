@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container px-6 py-8 mx-auto">
         <div className="flex flex-col items-center text-center">
           <div className="flex flex-row items-center space-x-2">
-            <Image height={"37px"} src="/hunger1.png" alt="Dan Abramov" />
+            <Image height={"37px"} src="/images/hunger1.png" alt="Dan Abramov" />
             <h1 className="text-4xl h-12 font-bold bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">
               Hunger Halt
             </h1>

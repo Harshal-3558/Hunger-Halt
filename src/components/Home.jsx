@@ -1,24 +1,24 @@
 import { Button } from "@chakra-ui/react";
 import { FaArrowRight, FaCircleCheck } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import heroImage from "/hero-min.jpg";
-import img6 from "/img6.jpeg";
-import img8 from "/img8.jpeg";
-import img7 from "/img7.jpeg";
-import img5 from "/img5.jpeg";
-import img2 from "/img2.jpeg";
-import img3 from "/img3.jpeg";
-import img4 from "/img4.jpeg";
-import logo1 from "/logo1.png";
-import logo2 from "/logo2.png";
-import logo3 from "/logo3.png";
-import logo4 from "/logo4.png";
-import logo5 from "/logo5.png";
-import logo6 from "/logo6.png";
-import logo7 from "/logo7.png";
-import logo8 from "/logo8.png";
-import logo9 from "/logo9.png";
-import logo10 from "/logo10.png";
+import heroImage from "/images/hero-min.jpg";
+import img6 from "/images/img6.jpeg";
+import img8 from "/images/img8.jpeg";
+import img7 from "/images/img7.jpeg";
+import img5 from "/images/img5.jpeg";
+import img2 from "/images/img2.jpeg";
+import img3 from "/images/img3.jpeg";
+import img4 from "/images/img4.jpeg";
+import logo1 from "/images/logo1.png";
+import logo2 from "/images/logo2.png";
+import logo3 from "/images/logo3.png";
+import logo4 from "/images/logo4.png";
+import logo5 from "/images/logo5.png";
+import logo6 from "/images/logo6.png";
+import logo7 from "/images/logo7.png";
+import logo8 from "/images/logo8.png";
+import logo9 from "/images/logo9.png";
+import logo10 from "/images/logo10.png";
 
 export default function Home() {
   return (

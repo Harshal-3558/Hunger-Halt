@@ -79,5 +79,5 @@ export default function WorkingLocation({ setLocation }) {
 }
 
 WorkingLocation.propTypes = {
-  setLocation: PropTypes.object,
+  setLocation: PropTypes.array,
 };

@@ -21,6 +21,20 @@ if ("serviceWorker" in navigator) {
     });
 }
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/src/service-worker.js").then(
+      // eslint-disable-next-line no-unused-vars
+      function (registration) {
+        console.log("ServiceWorker registration successful");
+      },
+      function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      }
+    );
+  });
+}
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>

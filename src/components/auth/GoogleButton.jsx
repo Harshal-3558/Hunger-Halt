@@ -1,10 +1,19 @@
 import { Button } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
+import { FaGoogle } from "react-icons/fa";
 
 export default function GoogleButton() {
+  const handleGoogleAuth = () => {
+    window.location.href = "http://localhost:3000/auth/google"; // Replace with your server URL
+  };
+
   return (
     <>
-      <Button w={"full"} size={{base: "md", md: "lg"}} leftIcon={<FcGoogle size={25}/>}>
+      <Button
+        w={"full"}
+        size={{ base: "md", md: "lg" }}
+        leftIcon={<FaGoogle size={25} />}
+        onClick={handleGoogleAuth}
+      >
         Sign in with Google
       </Button>
     </>
