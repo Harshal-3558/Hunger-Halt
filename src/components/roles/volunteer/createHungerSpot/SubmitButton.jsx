@@ -7,7 +7,7 @@ export default function SubmitButton({
   address,
   image,
   onClose,
-  requiredQTY,
+  beneficiaries,
 }) {
   const user = useSelector((state) => state.auth.user);
   const toast = useToast();
@@ -25,7 +25,7 @@ export default function SubmitButton({
           email: user.email,
           location,
           address,
-          requiredQTY,
+          beneficiaries,
           image,
         }),
       }
@@ -66,5 +66,5 @@ SubmitButton.propTypes = {
   address: PropTypes.string,
   image: PropTypes.string,
   onClose: PropTypes.func,
-  requiredQTY: PropTypes.number,
+  beneficiaries: PropTypes.number,
 };

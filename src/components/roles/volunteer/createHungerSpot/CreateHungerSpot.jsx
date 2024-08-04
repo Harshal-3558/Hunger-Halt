@@ -29,7 +29,7 @@ export default function CreateHungerSpot() {
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState("");
   const [image, setImage] = useState("");
-  const [qty, setQty] = useState(0);
+  const [beneficiaries, setBeneficiaries] = useState(0);
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
@@ -86,12 +86,12 @@ export default function CreateHungerSpot() {
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl mt={4}>
-                <FormLabel>Required Food Qauntity (Approx)</FormLabel>
+                <FormLabel>Number of Beneficiaries</FormLabel>
                 <Input
                   type="number"
                   placeholder="in kg"
-                  value={qty}
-                  onChange={(e) => setQty(e.target.value)}
+                  value={beneficiaries}
+                  onChange={(e) => setBeneficiaries(e.target.value)}
                 />
               </FormControl>
               <FormControl mt={4}>
@@ -135,7 +135,7 @@ export default function CreateHungerSpot() {
               <SubmitButton
                 location={location}
                 address={address}
-                requiredQTY={qty}
+                beneficiaries={beneficiaries}
                 onClose={onClose}
                 image={image}
               />

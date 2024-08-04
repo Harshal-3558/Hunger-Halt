@@ -65,7 +65,7 @@ export default function HungerSpots() {
       container: "map", // container ID
       style: "mapbox://styles/mapbox/streets-v11", // style URL
       center: [73.100279, 19.0013848], // starting position [lng, lat]
-      zoom: 11, // starting zoom
+      zoom: 12, // starting zoom
     });
 
     // Add markers for each hunger spot

@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 export default function SelectRole() {
   const [role, setRole] = useState("donor");
   const [location, setLocation] = useState([]);
-  const [org, setOrg] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [orgEmail, setOrgEmail] = useState("");
   const [days, setDays] = useState([]);
   const { user } = useSelector((state) => state.auth);
   const toast = useToast();
@@ -24,7 +25,6 @@ export default function SelectRole() {
   };
 
   async function onSubmit() {
-    console.log(role, location, org, days);
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/user/updateDetails`,
       {
@@ -36,7 +36,8 @@ export default function SelectRole() {
           id: user._id,
           role,
           location,
-          org,
+          orgName,
+          orgEmail,
           days,
         }),
       }
@@ -72,18 +73,6 @@ export default function SelectRole() {
                 Select your role
               </p>
               <RadioCard setRole={setRole} />
-            </div>
-            <div className="space-y-2">
-              <p className="text-lg font-semibold text-gray-500">
-                Enter your Organization name
-              </p>
-              <Input
-                variant={"filled"}
-                onChange={(e) => {
-                  setOrg(e.target.value);
-                }}
-                placeholder="e.g. your org"
-              />
             </div>
             {role === "volunteer" && (
               <div className="space-y-2">
@@ -148,7 +137,46 @@ export default function SelectRole() {
               </div>
             )}
             {role === "volunteer" && (
-              <WorkingLocation setLocation={setLocation} />
+              <div className="space-y-2">
+                <p className="text-lg font-semibold text-gray-500">
+                  Select your working location
+                </p>
+                <WorkingLocation setLocation={setLocation} />
+              </div>
+            )}
+            {role === "ngo" && (
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Enter your Organization name
+                  </p>
+                  <Input
+                    variant={"filled"}
+                    onChange={(e) => {
+                      setOrgName(e.target.value);
+                    }}
+                    placeholder="Enter Name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Enter your Organization Email
+                  </p>
+                  <Input
+                    variant={"filled"}
+                    onChange={(e) => {
+                      setOrgEmail(e.target.value);
+                    }}
+                    placeholder="Enter Email"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Select your Organization location
+                  </p>
+                  <WorkingLocation setLocation={setLocation} />
+                </div>
+              </div>
             )}
           </div>
           <div>

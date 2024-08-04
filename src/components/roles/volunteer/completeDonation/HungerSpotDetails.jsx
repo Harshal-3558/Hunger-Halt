@@ -19,6 +19,7 @@ export default function HungerSpotDetails({ user }) {
       }
     );
     const data = await response.json();
+    console.log(data)
     setDetails(data);
   }
   useEffect(() => {

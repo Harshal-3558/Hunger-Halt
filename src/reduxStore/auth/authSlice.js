@@ -5,7 +5,7 @@ export const fetchAuthStatus = createAsyncThunk(
   "auth/fetchAuthStatus",
   async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/auth/authStatus`,
+      `${import.meta.env.VITE_HOST2}/auth/authStatus`,
       {
         method: "GET",
         credentials: "include",

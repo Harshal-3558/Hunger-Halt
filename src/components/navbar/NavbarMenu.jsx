@@ -17,7 +17,7 @@ export default function NavbarMenu() {
   const toast = useToast();
 
   async function onSubmit() {
-    const response = await fetch(`${import.meta.env.VITE_HOST}/auth/logout`, {
+    const response = await fetch(`${import.meta.env.VITE_HOST2}/auth/logout`, {
       method: "POST",
       credentials: "include", // Include cookies in the request
     });

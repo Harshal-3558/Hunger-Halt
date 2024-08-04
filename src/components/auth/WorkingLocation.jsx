@@ -39,10 +39,7 @@ export default function WorkingLocation({ setLocation }) {
   };
 
   return (
-    <div className="space-y-2">
-      <p className="text-lg font-semibold text-gray-500">
-        Select your working location
-      </p>
+    <div>
       <Input
         value={query}
         variant={"filled"}

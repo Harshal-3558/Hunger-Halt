@@ -3,7 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 
 export default function GoogleButton() {
   const handleGoogleAuth = () => {
-    window.location.href = "http://localhost:3000/auth/google"; // Replace with your server URL
+    window.location.href = `${import.meta.env.VITE_HOST2}/auth/google`; // Replace with your server URL
   };
 
   return (

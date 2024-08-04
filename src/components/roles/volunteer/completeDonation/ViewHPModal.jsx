@@ -15,7 +15,7 @@ export default function ViewHPModal({ detail }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button onClick={onOpen}>view assigned HP</Button>
+      <Button colorScheme="teal" onClick={onOpen}>View Assigned HP</Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered={true}>
         <ModalOverlay />
         <ModalContent maxWidth="500px" width="95%">
