@@ -2,9 +2,14 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import CompleteDonationButton from "./CompleteDonationButton";
 import ViewHPModal from "./ViewHPModal";
+import { io } from "socket.io-client";
 
 export default function HungerSpotDetails({ user }) {
   const [detail, setDetails] = useState({});
+  const socket = io(`${import.meta.env.VITE_HOST}`, {
+    withCredentials: true,
+  });
+
   async function handleGetDetails() {
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/user/getAssignedHungerSpot`,
@@ -19,13 +24,23 @@ export default function HungerSpotDetails({ user }) {
       }
     );
     const data = await response.json();
-    console.log(data)
     setDetails(data);
   }
   useEffect(() => {
     handleGetDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    socket.on("HPDBChange", () => {
+      handleGetDetails();
+    });
+    return () => {
+      socket.off("HPDBChange");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="h-32 md:h-[260px] w-[170px] md:w-[600px] bg-slate-200 border rounded-xl p-2 md:p-4 space-y-3">
       <h1 className="hidden md:block md:text-2xl font-semibold">

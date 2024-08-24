@@ -18,7 +18,7 @@ export default function Status() {
                 </div>
                 <div className="mt-1 flex items-center gap-x-2">
                   <h3 className="text-xl sm:text-2xl font-medium text-gray-800">
-                    72,540
+                    7 / 10
                   </h3>
                 </div>
               </div>
@@ -28,7 +28,7 @@ export default function Status() {
           <div className="flex flex-col bg-white border shadow-sm rounded-xl">
             <div className="p-4 md:p-5 flex gap-x-4">
               <div className="flex-shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg">
-                <FaHandHoldingHeart />
+                <FaHandHoldingHeart className="text-blue-600"/>
               </div>
               <div className="grow">
                 <div className="flex items-center gap-x-2">
@@ -36,9 +36,12 @@ export default function Status() {
                     Todays Donation
                   </p>
                 </div>
-                <div className="mt-1 flex items-center gap-x-2">
+                <div className="mt-1 flex items-baseline gap-x-1">
                   <h3 className="text-xl sm:text-2xl font-medium text-gray-800">
-                    72,540
+                    725
+                  </h3>
+                  <h3 className="text-xl sm:text-sm font-medium text-gray-400">
+                    KG
                   </h3>
                 </div>
               </div>

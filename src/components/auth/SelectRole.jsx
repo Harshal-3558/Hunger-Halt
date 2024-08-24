@@ -137,11 +137,25 @@ export default function SelectRole() {
               </div>
             )}
             {role === "volunteer" && (
-              <div className="space-y-2">
-                <p className="text-lg font-semibold text-gray-500">
-                  Select your working location
-                </p>
-                <WorkingLocation setLocation={setLocation} />
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Select your working location
+                  </p>
+                  <WorkingLocation setLocation={setLocation} />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Enter NGO Name
+                  </p>
+                  <Input
+                    variant={"filled"}
+                    onChange={(e) => {
+                      setOrgName(e.target.value);
+                    }}
+                    placeholder="Enter Name"
+                  />
+                </div>
               </div>
             )}
             {role === "ngo" && (
@@ -176,6 +190,20 @@ export default function SelectRole() {
                   </p>
                   <WorkingLocation setLocation={setLocation} />
                 </div>
+              </div>
+            )}
+            {role === "donor" && (
+              <div className="space-y-2">
+                <p className="text-lg font-semibold text-gray-500">
+                  Enter your Bussiness Name
+                </p>
+                <Input
+                  variant={"filled"}
+                  onChange={(e) => {
+                    setOrgName(e.target.value);
+                  }}
+                  placeholder="Enter Name"
+                />
               </div>
             )}
           </div>

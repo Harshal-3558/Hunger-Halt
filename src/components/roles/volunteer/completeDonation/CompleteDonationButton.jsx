@@ -11,7 +11,7 @@ CompleteDonationButton.propTypes = {
   close: PropTypes.func,
 };
 
-export default function CompleteDonationButton({ id, beneficiaryNO, close }) {
+export default function CompleteDonationButton({ id, beneficiaryNO }) {
   const [location, setLocation] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -34,32 +34,33 @@ export default function CompleteDonationButton({ id, beneficiaryNO, close }) {
 
   async function handleSubmit() {
     console.log(location);
-    const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/checkBeforeDonation`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id,
-          location,
-        }),
-      }
-    );
-    const res = await response.json();
-    console.log(res);
-    if (res.message) {
-      onOpen();
-    } else {
-      toast({
-        title: "Please visit assigned Hunger Spot",
-        status: "warning",
-        position: "top",
-        duration: 9000,
-        isClosable: true,
-      });
-    }
+    // const response = await fetch(
+    //   `${import.meta.env.VITE_HOST}/user/checkBeforeDonation`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       id,
+    //       location,
+    //     }),
+    //   }
+    // );
+    // const res = await response.json();
+    // console.log(res);
+    // if (res.message) {
+    //   onOpen();
+    // } else {
+    //   toast({
+    //     title: "Please visit assigned Hunger Spot",
+    //     status: "warning",
+    //     position: "top",
+    //     duration: 9000,
+    //     isClosable: true,
+    //   });
+    // }
+    onOpen();
   }
 
   return (

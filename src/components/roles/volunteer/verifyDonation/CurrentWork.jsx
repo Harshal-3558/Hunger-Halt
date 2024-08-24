@@ -63,9 +63,27 @@ export default function CurrentWork({ user }) {
                   <Button
                     colorScheme="blue"
                     leftIcon={<FaLocationDot className="text-lg md:text-2xl" />}
+                    onClick={() => {
+                      const address = encodeURIComponent(items.address); // Encode the address for URL
+                      const isMobile = /iPhone|iPad|iPod|Android/i.test(
+                        navigator.userAgent
+                      );
+
+                      if (isMobile) {
+                        // Use geo: URL scheme for mobile devices
+                        window.location.href = `geo:0,0?q=${address}`;
+                      } else {
+                        // Use Google Maps URL for desktop
+                        window.open(
+                          `https://www.google.com/maps/search/?api=1&query=${address}`,
+                          "_blank"
+                        );
+                      }
+                    }}
                   >
                     Get Directions
                   </Button>
+
                   <VerifyModal id={items._id} />
                 </div>
               </div>

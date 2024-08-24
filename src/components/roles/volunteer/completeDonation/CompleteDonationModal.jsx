@@ -38,6 +38,7 @@ export default function CompleteDonationModal({
         }),
       }
     );
+    console.log(response)
     if (response.ok) {
       toast({
         title: "Donation Process Completed",

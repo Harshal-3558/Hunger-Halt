@@ -74,6 +74,7 @@ export default function VerifyModal({ id }) {
               <FormLabel>Shelf Life</FormLabel>
               <Input
                 type="number"
+                placeholder="in hours"
                 onChange={(e) => {
                   setShelfLife(e.target.value);
                 }}

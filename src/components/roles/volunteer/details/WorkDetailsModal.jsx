@@ -32,6 +32,7 @@ export default function WorkDetailsModal({ isOpen, onClose, donationID }) {
         }
       );
       const value = await response.json();
+      console.log(value)
       setDetail(value);
     }
     handleData();
