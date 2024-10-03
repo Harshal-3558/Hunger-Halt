@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, useDisclosure } from "@chakra-ui/react";
 import { FaCircleCheck, FaLocationDot } from "react-icons/fa6";
 import PropTypes from "prop-types";
-import { useToast } from "@chakra-ui/react";
+// import { useToast } from "@chakra-ui/react";
 import CompleteDonationModal from "./CompleteDonationModal";
 
 CompleteDonationButton.propTypes = {
@@ -14,7 +14,7 @@ CompleteDonationButton.propTypes = {
 export default function CompleteDonationButton({ id, beneficiaryNO }) {
   const [location, setLocation] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
+  // const toast = useToast();
 
   useEffect(() => {
     if (!location && navigator.geolocation) {
@@ -30,6 +30,7 @@ export default function CompleteDonationButton({ id, beneficiaryNO }) {
         }
       );
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function handleSubmit() {

@@ -55,7 +55,7 @@ export default function CurrentWork({ user }) {
                 Your current work
               </h1>
               <div className="md:flex justify-between items-center space-y-2">
-                <div className="text-sm md:text-base">
+                <div className="text-sm md:text-base w-[800px]">
                   <span className="font-medium">Location to be visited : </span>
                   <span>{items.address}</span>
                 </div>

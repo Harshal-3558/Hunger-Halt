@@ -18,6 +18,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SubmitButton from "./SubmitButton";
 import { handleGetLocation, initializeMap } from "../../../map/getLocation";
+import WorkingLocation from "../../auth/WorkingLocation";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -99,12 +100,8 @@ export default function CreateDonation() {
               />
             </FormControl>
             <FormControl mt={4}>
-              <FormLabel>Current Location</FormLabel>
-              <Input
-                isReadOnly={true}
-                value={address && `${address}`}
-                placeholder="Your current address"
-              />
+            <FormLabel>Enter Location</FormLabel>
+              <WorkingLocation setLocation={setLocation} value={address && `${address}`} setAddress={setAddress}/>
               <Button
                 marginTop={3}
                 onClick={() => {
@@ -116,6 +113,14 @@ export default function CreateDonation() {
                 Get Current Location
               </Button>
             </FormControl>
+            {/* <FormControl mt={4}>
+              <FormLabel>Current Location</FormLabel>
+              <Input
+                isReadOnly={true}
+                value={address && `${address}`}
+                placeholder="Your current address"
+              />
+            </FormControl> */}
             <div>
               {location && (
                 <div
@@ -136,7 +141,7 @@ export default function CreateDonation() {
               person={person}
               onClose={onClose}
             />
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={()=> {console.log(location)}}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

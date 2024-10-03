@@ -17,10 +17,8 @@ import { FaCirclePlus } from "react-icons/fa6";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SubmitButton from "./SubmitButton";
-import {
-  handleGetLocation,
-  initializeMap,
-} from "../../../../map/getLocation";
+import { handleGetLocation, initializeMap } from "../../../../map/getLocation";
+import WorkingLocation from "../../../auth/WorkingLocation";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -104,11 +102,11 @@ export default function CreateHungerSpot() {
                 />
               </FormControl>
               <FormControl mt={4}>
-                <FormLabel>Current Location</FormLabel>
-                <Input
-                  isReadOnly={true}
+                <FormLabel>Enter Location</FormLabel>
+                <WorkingLocation
+                  setLocation={setLocation}
                   value={address && `${address}`}
-                  placeholder="Your current address"
+                  setAddress={setAddress}
                 />
                 <Button
                   marginTop={3}
@@ -125,7 +123,7 @@ export default function CreateHungerSpot() {
                 {location && (
                   <div
                     ref={mapContainerRef}
-                    className="h-44 md:h-80 rounded-lg w-full"
+                    className="h-44 md:h-64 rounded-lg w-full"
                   ></div>
                 )}
               </div>

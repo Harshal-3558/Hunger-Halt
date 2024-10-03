@@ -32,11 +32,11 @@ export default function HungerSpotDetails({ user }) {
   }, []);
 
   useEffect(() => {
-    socket.on("HPDBChange", () => {
+    socket.on("FoodDBChange", () => {
       handleGetDetails();
     });
     return () => {
-      socket.off("HPDBChange");
+      socket.off("FoodDBChange");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
