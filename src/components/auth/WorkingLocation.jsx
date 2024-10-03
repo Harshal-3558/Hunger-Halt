@@ -5,9 +5,14 @@ import PropTypes from "prop-types";
 
 const mapboxToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
-export default function WorkingLocation({ setLocation }) {
+export default function WorkingLocation({ setLocation, value, setAddress }) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    // Ensure value is not undefined or null
+    setQuery(value || "");
+  }, [value]);
 
   useEffect(() => {
     if (query.length > 2) {
@@ -32,7 +37,8 @@ export default function WorkingLocation({ setLocation }) {
       `https://api.mapbox.com/search/searchbox/v1/retrieve/${id}?session_token=0d003885-fedd-4db1-8903-3db30550c305&access_token=${mapboxToken}`
     );
     const data = await response.json();
-    console.log(data.features[0].geometry.coordinates);
+    console.log(data.features[0].properties.full_address);
+    setAddress(`${data.features[0].properties.name},${data.features[0].properties.full_address}`);
     setLocation(data.features[0].geometry.coordinates);
     setQuery(suggestion.name);
     setSuggestions([]);
@@ -46,7 +52,7 @@ export default function WorkingLocation({ setLocation }) {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Enter your location"
       />
-      {suggestions.length > 0 && (
+      {suggestions && suggestions.length > 0 && (
         <div className="mt-2 space-y-2 bg-slate-100 p-3 rounded-lg">
           {suggestions.map((suggestion) => (
             <div
@@ -77,4 +83,10 @@ export default function WorkingLocation({ setLocation }) {
 
 WorkingLocation.propTypes = {
   setLocation: PropTypes.array,
+  value: PropTypes.string,
+  setAddress: PropTypes.string,
+};
+
+WorkingLocation.defaultProps = {
+  value: "",
 };

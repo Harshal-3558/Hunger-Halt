@@ -41,7 +41,7 @@ export function initializeMap(mapContainerRef, location) {
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [location[0], location[1]],
-      zoom: 12,
+      zoom: 13,
     });
 
     new mapboxgl.Marker().setLngLat([location[0], location[1]]).addTo(map);
