@@ -8,6 +8,8 @@ export default function SubmitButton({
   image,
   onClose,
   beneficiaries,
+  disableButton,
+  loading,
 }) {
   const user = useSelector((state) => state.auth.user);
   const toast = useToast();
@@ -54,6 +56,9 @@ export default function SubmitButton({
         }}
         colorScheme="blue"
         mr={3}
+        isDisabled={disableButton}
+        isLoading={loading}
+        loadingText="Verifying Hunger Spot"
       >
         Save
       </Button>
@@ -67,4 +72,6 @@ SubmitButton.propTypes = {
   image: PropTypes.string,
   onClose: PropTypes.func,
   beneficiaries: PropTypes.number,
+  disableButton: PropTypes.bool,
+  loading: PropTypes.bool,
 };

@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa6";
 
 export default function GithubButton() {
   const handleGithubAuth = () => {
-    window.location.href = `${import.meta.env.VITE_HOST2}/auth/github`; // Replace with your server URL
+    window.location.href = `${import.meta.env.VITE_HOST}/auth/github`; // Replace with your server URL
   };
 
   return (

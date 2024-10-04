@@ -44,7 +44,7 @@ export default function SignUp() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_HOST2}/auth/signup`, {
+      const response = await fetch(`${import.meta.env.VITE_HOST}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
