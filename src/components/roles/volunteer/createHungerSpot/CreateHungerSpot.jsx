@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {
   Button,
   Modal,
@@ -12,12 +12,13 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { FaCirclePlus } from "react-icons/fa6";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SubmitButton from "./SubmitButton";
-import { handleGetLocation, initializeMap } from "../../../../map/getLocation";
+import { handleGetLocation } from "../../../../map/getLocation";
 import WorkingLocation from "../../../auth/WorkingLocation";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
@@ -28,27 +29,40 @@ export default function CreateHungerSpot() {
   const [address, setAddress] = useState("");
   const [image, setImage] = useState("");
   const [beneficiaries, setBeneficiaries] = useState(0);
-  const mapContainerRef = useRef(null);
+  const [disableButton, setDisableButton] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
-  useEffect(() => {
-    const removeMap = initializeMap(mapContainerRef, location);
-
-    return () => {
-      if (removeMap) removeMap();
-    };
-  }, [location]);
+  async function checkImage(image) {
+    setLoading(true);
+    const response = await fetch(
+      `${import.meta.env.VITE_HOST}/volunteer/checkHungerSpot`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image,
+        }),
+      }
+    );
+    const data = await response.json();
+    return data;
+  }
 
   const handleImageUpload = async (event) => {
     const files = event.target.files;
+    const file = files[0];
+    const reader = new FileReader();
     const formData = new FormData();
     formData.append("file", files[0]);
-    formData.append("upload_preset", "nwusbo91"); // Replace 'your_preset_here' with your Cloudinary upload preset
+    formData.append("upload_preset", "nwusbo91");
 
     try {
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/dgz3kwpsj/image/upload",
         {
-          // Replace 'your_cloudinary_name' with your Cloudinary cloud name
           method: "POST",
           body: formData,
         }
@@ -56,10 +70,33 @@ export default function CreateHungerSpot() {
 
       const data = await response.json();
       console.log(data);
-      setImage(data.secure_url); // Store the URL of the uploaded image in state
+      setImage(data.secure_url);
     } catch (error) {
       console.error("Error uploading image: ", error);
     }
+
+    reader.onload = async () => {
+      const base64Image = reader.result;
+      const value = await checkImage(base64Image);
+      if (value.isHungerSpot) {
+        toast({
+          title: "Hunger Spot verified",
+          status: "success",
+          position: "top",
+        });
+        setLoading(false);
+        setDisableButton(false);
+      } else {
+        toast({
+          title: "This is not a hunger spot",
+          status: "error",
+          position: "top",
+        });
+        setLoading(false);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -93,15 +130,6 @@ export default function CreateHungerSpot() {
                 />
               </FormControl>
               <FormControl mt={4}>
-                <FormLabel>Upload Image of location</FormLabel>
-                <input
-                  onChange={handleImageUpload}
-                  accept="image/*"
-                  type="file"
-                  className="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-700 file:disabled:opacity-50 file:disabled:pointer-events-none"
-                />
-              </FormControl>
-              <FormControl mt={4}>
                 <FormLabel>Enter Location</FormLabel>
                 <WorkingLocation
                   setLocation={setLocation}
@@ -119,14 +147,25 @@ export default function CreateHungerSpot() {
                   Get Current Location
                 </Button>
               </FormControl>
-              <div>
-                {location && (
-                  <div
-                    ref={mapContainerRef}
-                    className="h-44 md:h-64 rounded-lg w-full"
-                  ></div>
-                )}
-              </div>
+              <FormControl mt={4}>
+                <FormLabel>Upload Image of location</FormLabel>
+                <input
+                  onChange={handleImageUpload}
+                  accept="image/*"
+                  type="file"
+                  className="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-700 file:disabled:opacity-50 file:disabled:pointer-events-none"
+                />
+              </FormControl>
+              {/* Image Preview */}
+              {image && (
+                <div className="mt-4">
+                  <img
+                    src={image}
+                    alt="Uploaded location"
+                    className="w-44 h-auto rounded-lg"
+                  />
+                </div>
+              )}
             </ModalBody>
 
             <ModalFooter>
@@ -136,6 +175,8 @@ export default function CreateHungerSpot() {
                 beneficiaries={beneficiaries}
                 onClose={onClose}
                 image={image}
+                disableButton={disableButton}
+                loading={loading}
               />
               <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>

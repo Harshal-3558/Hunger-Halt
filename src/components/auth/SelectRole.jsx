@@ -14,6 +14,7 @@ export default function SelectRole() {
   const { user } = useSelector((state) => state.auth);
   const toast = useToast();
   const navigate = useNavigate();
+  const [address, setAddress] = useState("");
 
   const handleCheckboxChange = (e) => {
     const value = e.target.value;
@@ -142,7 +143,11 @@ export default function SelectRole() {
                   <p className="text-lg font-semibold text-gray-500">
                     Select your working location
                   </p>
-                  <WorkingLocation setLocation={setLocation} />
+                  <WorkingLocation
+                    setLocation={setLocation}
+                    setAddress={setAddress}
+                    value={address && `${address}`}
+                  />
                 </div>
                 <div className="space-y-2">
                   <p className="text-lg font-semibold text-gray-500">
@@ -188,7 +193,11 @@ export default function SelectRole() {
                   <p className="text-lg font-semibold text-gray-500">
                     Select your Organization location
                   </p>
-                  <WorkingLocation setLocation={setLocation} />
+                  <WorkingLocation
+                    setLocation={setLocation}
+                    setAddress={setAddress}
+                    value={address && `${address}`}
+                  />
                 </div>
               </div>
             )}

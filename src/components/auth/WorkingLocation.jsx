@@ -19,7 +19,7 @@ export default function WorkingLocation({ setLocation, value, setAddress }) {
       const fetchSuggestions = async () => {
         try {
           const response = await fetch(
-            `https://api.mapbox.com/search/searchbox/v1/suggest?q=${query}&session_token=0d003885-fedd-4db1-8903-3db30550c305&access_token=${mapboxToken}&language=en&limit=5&country=IN`
+            `https://api.mapbox.com/search/searchbox/v1/suggest?q=${query}&session_token=0d003885-fedd-4db1-8903-3db30550c305&access_token=${mapboxToken}&language=en&limit=4&country=IN`
           );
           const data = await response.json();
           setSuggestions(data.suggestions);
