@@ -1,7 +1,19 @@
-import { Button, useDisclosure, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  useDisclosure,
+  useToast,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { io } from "socket.io-client";
+import { FaListCheck } from "react-icons/fa6";
 import WorkDetailsModal from "./details/WorkDetailsModal";
 
 export default function VolunteerUpdates({ user }) {
@@ -11,6 +23,12 @@ export default function VolunteerUpdates({ user }) {
   });
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isDetailsOpen,
+    onOpen: onDetailsOpen,
+    onClose: onDetailsClose,
+  } = useDisclosure();
+  const [selectedDonationID, setSelectedDonationID] = useState();
 
   async function handleData() {
     const response = await fetch(
@@ -77,42 +95,76 @@ export default function VolunteerUpdates({ user }) {
   }, []);
 
   return (
-    <div className="h-90 md:h-[450px] w-full md:w-[600px] bg-slate-200 border rounded-xl p-4 space-y-2 overflow-auto">
-      <h1 className="text-lg md:text-2xl font-semibold">Your Work Updates</h1>
-      {updates.length != 0 ? (
-        updates.map((items) => (
-          <div
-            key={items._id}
-            className="p-2 bg-white rounded-lg font-medium text-base space-y-4"
-          >
-            <div className="space-y-1">
-              <div>Donor Name : {items.donorName}</div>
-              <div>Donor Address : {items.donorAddress}</div>
-            </div>
-            <div className="flex space-x-2 justify-end">
-              <Button onClick={onOpen}>View Details</Button>
-              <Button
-                colorScheme="red"
-                onClick={() => {
-                  handleSubmit(items._id, items.donationID);
-                }}
-              >
-                Take Job
-              </Button>
-            </div>
-            <WorkDetailsModal
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onClose={onClose}
-              donationID={items.donationID}
-            />
-          </div>
-        ))
-      ) : (
-        <div className="h-[330px] flex justify-center items-center">
-          <h1 className="md:text-lg">No updates yet</h1>
+    <div>
+      <button
+        onClick={onOpen}
+        className="h-32 md:h-36 w-full md:w-full bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
+      >
+        <div>
+          <FaListCheck className="text-[30px]" />
         </div>
-      )}
+        <div>
+          <p className="text-base md:text-xl">Work Updates</p>
+        </div>
+      </button>
+
+      <Modal isOpen={isOpen} onClose={onClose} size={"xl"} isCentered={true}>
+        <ModalOverlay />
+        <ModalContent maxWidth="800px" width="95%">
+          <ModalHeader>Work Updates</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody className="space-y-4">
+            {updates.length != 0 ? (
+              updates.map((items) => (
+                <div
+                  key={items._id}
+                  className="p-2 bg-gray-200 rounded-lg font-medium text-base space-y-4"
+                >
+                  <div className="space-y-1">
+                    <div>Donor Name : {items.donorName}</div>
+                    <div>Donor Address : {items.donorAddress}</div>
+                  </div>
+                  <div className="flex space-x-2 justify-end">
+                    <Button
+                      colorScheme="teal"
+                      onClick={() => {
+                        setSelectedDonationID(items.donationID);
+                        onDetailsOpen();
+                      }}
+                    >
+                      View Details
+                    </Button>
+                    <Button
+                      colorScheme="red"
+                      onClick={() => {
+                        handleSubmit(items._id, items.donationID);
+                      }}
+                    >
+                      Take Job
+                    </Button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="h-[330px] flex justify-center items-center">
+                <h1 className="md:text-lg">No updates yet</h1>
+              </div>
+            )}
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <WorkDetailsModal
+        isOpen={isDetailsOpen}
+        onClose={onDetailsClose}
+        donationID={selectedDonationID}
+      />
     </div>
   );
 }

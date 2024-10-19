@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import CompleteDonationButton from "./CompleteDonationButton";
-import ViewHPModal from "./ViewHPModal";
 import { io } from "socket.io-client";
 
-export default function HungerSpotDetails({ user }) {
+export default function HungerSpotDetailsParent({ user }) {
   const [detail, setDetails] = useState({});
   const socket = io(`${import.meta.env.VITE_HOST}`, {
     withCredentials: true,
   });
 
   async function handleGetDetails() {
+    console.log(user);
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/user/getAssignedHungerSpot`,
       {
@@ -42,50 +42,52 @@ export default function HungerSpotDetails({ user }) {
   }, []);
 
   return (
-    <div className="h-32 md:h-[260px] w-[170px] md:w-[600px] bg-slate-200 border rounded-xl p-2 md:p-4 space-y-3">
-      <h1 className="hidden md:block md:text-2xl font-semibold">
-        Hunger Spot To Be Visited
-      </h1>
+    <div>
+      {Object.keys(detail).length !== 0 && (
+        <HungerSpotDetails detail={detail} />
+      )}
+    </div>
+  );
+}
+
+function HungerSpotDetails({ detail }) {
+  return (
+    <div className="h-full md:h-full w-full md:w-full bg-slate-200 border rounded-xl p-2 md:p-4 space-y-4">
+      <h1 className="text-2xl font-semibold">Hunger Spot To Be Visited</h1>
       <div>
-        {Object.keys(detail).length !== 0 ? (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <div>
+              <span className="font-semibold text-lg">Assigned Address : </span>
+              <span className="text-lg text-pretty">{detail.address}</span>
+            </div>
+            <div>
+              <span className="font-semibold text-lg">
+                No. of beneficiary :{" "}
+              </span>
+              <span className="text-lg">{detail.totalBeneficiary}</span>
+            </div>
+          </div>
           <div>
-            <div className="hidden md:block space-y-10">
-              <div className="space-y-3">
-                <div>
-                  <span className="font-semibold text-lg">
-                    Assigned Address :{" "}
-                  </span>
-                  <span className="text-lg">{detail.address}</span>
-                </div>
-                <div>
-                  <span className="font-semibold text-lg">
-                    No. of beneficiary :{" "}
-                  </span>
-                  <span className="text-lg">{detail.totalBeneficiary}</span>
-                </div>
-              </div>
-              <div className="float-end">
-                <CompleteDonationButton
-                  id={detail._id}
-                  beneficiaryNO={detail.totalBeneficiary}
-                />
-              </div>
-            </div>
-            <div className="h-20 flex justify-center items-center md:hidden">
-              <ViewHPModal detail={detail} />
-            </div>
+            <CompleteDonationButton
+              id={detail._id}
+              beneficiaryNO={detail.totalBeneficiary}
+            />
           </div>
-        ) : (
-          <div className="md:h-36 h-20 flex flex-col md:flex-row md:space-x-2 justify-center items-center">
-            <p className="md:text-lg">Hunger Spot</p>
-            <p className="md:text-lg">not assigned yet</p>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
 }
 
 HungerSpotDetails.propTypes = {
+  detail: PropTypes.shape({
+    address: PropTypes.string,
+    totalBeneficiary: PropTypes.number,
+    _id: PropTypes.string,
+  }),
+};
+
+HungerSpotDetailsParent.propTypes = {
   user: PropTypes.object,
 };

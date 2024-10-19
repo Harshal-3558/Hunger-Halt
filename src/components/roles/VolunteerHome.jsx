@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import CreateHungerSpot from "./volunteer/createHungerSpot/CreateHungerSpot";
 import { useSelector } from "react-redux";
-import VolunteerUpdates from "./volunteer/VolunteerUpdates";
 import CurrentWork from "./volunteer/verifyDonation/CurrentWork";
-import HungerSpotDetails from "./volunteer/completeDonation/HungerSpotDetails";
 import { onMessage } from "firebase/messaging";
 import { messaging } from "../../firebase/firebase";
 import Loader from "../Loader";
+import LiveMap from "../../map/LiveMap";
+import DonorStats from "./donor/DonorStats";
+import VolunteerUpdates from "./volunteer/VolunteerUpdates";
+import HungerSpotDetails from "./volunteer/completeDonation/HungerSpotDetails";
 
 export default function VolunteerHome() {
   const { user } = useSelector((state) => state.auth);
@@ -45,12 +47,21 @@ export default function VolunteerHome() {
             Welcome, {user.name}
           </h1>
           <CurrentWork user={user} />
-          <div className="md:flex justify-between space-y-2 md:space-y-0">
-            <div className="flex md:flex-col justify-between">
-              <CreateHungerSpot />
-              <HungerSpotDetails user={user} />
+          <HungerSpotDetails user={user}/>
+          <div className="grid md:grid-cols-2 md:grid-flow-col gap-4">
+            <div className="flex flex-col justify-between">
+              <div className="grid grid-cols-2 gap-4">
+                <CreateHungerSpot />
+                <VolunteerUpdates user={user} />
+              </div>
+              <div className="hidden md:flex">
+                <DonorStats />
+              </div>
             </div>
-            <VolunteerUpdates user={user} />
+            <LiveMap />
+            <div className="md:hidden">
+              <DonorStats />
+            </div>
           </div>
         </div>
       </div>

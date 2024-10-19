@@ -43,14 +43,14 @@ export default function CreateDonation() {
   return (
     <div>
       <button
-        className="h-32 md:h-36 w-full md:w-[600px] bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
+        className="h-32 md:h-36 w-full md:w-full bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
         onClick={onOpen}
       >
         <div>
           <FaCirclePlus className="text-[30px]" />
         </div>
         <div>
-          <p className="text-lg md:text-xl">Create your new donation</p>
+          <p className="text-base md:text-xl">Create new donation</p>
         </div>
       </button>
 
@@ -100,8 +100,12 @@ export default function CreateDonation() {
               />
             </FormControl>
             <FormControl mt={4}>
-            <FormLabel>Enter Location</FormLabel>
-              <WorkingLocation setLocation={setLocation} value={address && `${address}`} setAddress={setAddress}/>
+              <FormLabel>Enter Location</FormLabel>
+              <WorkingLocation
+                setLocation={setLocation}
+                value={address && `${address}`}
+                setAddress={setAddress}
+              />
               <Button
                 marginTop={3}
                 onClick={() => {
@@ -141,7 +145,13 @@ export default function CreateDonation() {
               person={person}
               onClose={onClose}
             />
-            <Button onClick={()=> {console.log(location)}}>Cancel</Button>
+            <Button
+              onClick={() => {
+                console.log(location);
+              }}
+            >
+              Cancel
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

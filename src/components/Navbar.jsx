@@ -49,29 +49,6 @@ export default function Navbar() {
             </div>
           )}
 
-          {user?.role === "donor" && location.pathname === "/donor" && (
-            <div className="space-x-5 font-semibold hidden md:flex">
-              <Link
-                to={"/"}
-                className="hover:text-teal-500 transition ease-in duration-200"
-              >
-                Home
-              </Link>
-              <Link
-                to={"/donationHistory"}
-                className="hover:text-teal-500 transition ease-in duration-200"
-              >
-                Donation History
-              </Link>
-              <Link
-                to={"/notification"}
-                className="hover:text-teal-500 transition ease-in duration-200"
-              >
-                Donation Stats
-              </Link>
-            </div>
-          )}
-
           {user?.role === "volunteer" && location.pathname === "/volunteer" && (
             <div className="space-x-5 font-semibold hidden md:flex">
               <Link
