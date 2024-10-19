@@ -1,18 +1,28 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Status from "./Status";
-import { useDisclosure } from "@chakra-ui/react";
-import DonationDetailsModal from "./DonationDetailsModal";
+import {
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Button,
+} from "@chakra-ui/react";
 
 export default function AllUpdatesPage() {
   const { user } = useSelector((state) => state.auth);
   const [updates, setUpdates] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedItem, setSelectedItem] = useState();
 
   useEffect(() => {
     async function getDonationUpdates() {
       const response = await fetch(
-        `${import.meta.env.VITE_HOST}/user/donationStatus`,
+        `${import.meta.env.VITE_HOST}/donor/donationStatus`,
         {
           method: "POST",
           headers: {
@@ -36,6 +46,12 @@ export default function AllUpdatesPage() {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-GB", options);
   };
+
+  const handleOpenModal = (item) => {
+    setSelectedItem(item);
+    onOpen();
+  };
+
   return (
     <div className="p-4 space-y-4">
       <div className="md:flex md:justify-center">
@@ -44,12 +60,12 @@ export default function AllUpdatesPage() {
         </h1>
       </div>
       <div className="flex justify-center">
-        <div className="space-y-4 h-[500px] overflow-auto">
+        <div className="space-y-4">
           {updates &&
             updates.map((item) => (
               <div key={item._id}>
                 <div
-                  onClick={onOpen}
+                  onClick={() => handleOpenModal(item)}
                   className="py-2 px-5 w-[350px] md:w-[600px] bg-gray-100 rounded-lg cursor-pointer text-base md:text-lg"
                 >
                   <div className="font-semibold">
@@ -72,15 +88,46 @@ export default function AllUpdatesPage() {
                     </div>
                   </div>
                 </div>
-                <DonationDetailsModal
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  item={item}
-                />
               </div>
             ))}
         </div>
       </div>
+
+      <Modal isOpen={isOpen} onClose={onClose} size={"sm"} isCentered={true}>
+        <ModalOverlay />
+        <ModalContent maxWidth="500px" width="95%">
+          <ModalHeader>Donation Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody className="space-y-2 text-base md:text-lg">
+            <div>
+              <span className="font-semibold">Assigned Volunteer</span> :{" "}
+              {selectedItem?.donorName || "Not Assigned yet"}
+            </div>
+            <div>
+              <span className="font-semibold">Volunteer Email</span> :{" "}
+              {selectedItem?.donorEmail || "Not Assigned yet"}
+            </div>
+            <div>
+              <span className="font-semibold">Assigned Hunger Spot</span> :{" "}
+              {selectedItem?.address || "Not Assigned yet"}
+            </div>
+            <div>
+              <span className="font-semibold">Food Qaulity Status</span> :{" "}
+              {selectedItem?.foodQualityStatus || "Not Assigned yet"}
+            </div>
+            <div>
+              <span className="font-semibold">Food Donation Status</span> :{" "}
+              {selectedItem?.foodDonationStatus || "Not Assigned yet"}
+            </div>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

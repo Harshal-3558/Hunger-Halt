@@ -16,7 +16,7 @@ export default function SubmitButton({
 
   async function handleFunction() {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/donateFood`,
+      `${import.meta.env.VITE_HOST}/donor/donateFood`,
       {
         method: "POST",
         headers: {

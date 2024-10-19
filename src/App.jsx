@@ -12,6 +12,7 @@ import VolunteerHome from "./components/roles/VolunteerHome";
 import NgoHome from "./components/roles/NgoHome";
 import AllUpdatesPage from "./components/roles/donor/AllUpdatesPage";
 import Selectrole from "./components/auth/SelectRole";
+import VolunteerUpdates from "./components/roles/volunteer/VolunteerUpdates";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/donor" element={<DonorHome />} />
         <Route path="/ngo" element={<NgoHome />} />
         <Route path="/donationHistory" element={<AllUpdatesPage />} />
+        <Route path="/volunteerUpdates" element={<VolunteerUpdates />} />
       </Routes>
       <Footer />
     </>

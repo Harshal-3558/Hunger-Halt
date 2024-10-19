@@ -103,14 +103,14 @@ export default function CreateHungerSpot() {
     <div>
       <div>
         <button
-          className="h-32 md:h-44 w-[185px] md:w-[600px] bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-2 md:space-y-3"
+          className="h-32 md:h-36 w-full md:w-full bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-2 md:space-y-3"
           onClick={onOpen}
         >
           <div>
             <FaCirclePlus className="text-[30px]" />
           </div>
           <div>
-            <p className="text-sm md:text-xl">Create new Hunger Spot</p>
+            <p className="text-base md:text-xl">Register Hunger Spot</p>
           </div>
         </button>
 
