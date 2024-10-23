@@ -10,6 +10,7 @@ export default function SubmitButton({
   beneficiaries,
   disableButton,
   loading,
+  hash,
 }) {
   const user = useSelector((state) => state.auth.user);
   const toast = useToast();
@@ -29,6 +30,7 @@ export default function SubmitButton({
           address,
           beneficiaries,
           image,
+          hash,
         }),
       }
     );
@@ -74,4 +76,5 @@ SubmitButton.propTypes = {
   beneficiaries: PropTypes.number,
   disableButton: PropTypes.bool,
   loading: PropTypes.bool,
+  hash: PropTypes.string,
 };

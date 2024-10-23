@@ -63,7 +63,6 @@ export default function HungerSpots() {
           }
         );
         const data = await response.json();
-        console.log(data);
         setHungerSpots(data);
       } catch (error) {
         console.error("Error fetching hunger spots:", error);
@@ -105,7 +104,6 @@ export default function HungerSpots() {
   }, []);
 
   useEffect(() => {
-    console.log(socket);
     socket.on("newHungerSpot", (data) => {
       if (Notification.permission === "granted") {
         new Notification("New Hunger Spot", {

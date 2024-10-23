@@ -32,7 +32,7 @@ export default function VolunteerUpdates({ user }) {
 
   async function handleData() {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/volunteerUpdates`,
+      `${import.meta.env.VITE_HOST}/volunteer/volunteerUpdates`,
       {
         method: "POST",
         headers: {
@@ -48,9 +48,8 @@ export default function VolunteerUpdates({ user }) {
   }
 
   async function handleSubmit(id, donationID) {
-    console.log(id);
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/assignVolunteer`,
+      `${import.meta.env.VITE_HOST}/volunteer/assignVolunteer`,
       {
         method: "POST",
         headers: {
@@ -85,7 +84,6 @@ export default function VolunteerUpdates({ user }) {
 
   useEffect(() => {
     socket.on("WorkDBChange", () => {
-      // console.log("Database change detected:", change);
       handleData();
     });
     return () => {
@@ -100,8 +98,14 @@ export default function VolunteerUpdates({ user }) {
         onClick={onOpen}
         className="h-32 md:h-36 w-full md:w-full bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
       >
-        <div>
-          <FaListCheck className="text-[30px]" />
+        <div className="relative">
+          <div className="absolute -top-1 -right-3">
+            <span className="relative flex h-5 w-5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-5 w-5 bg-sky-500"></span>
+            </span>
+          </div>
+          <FaListCheck className="text-[40px]" />
         </div>
         <div>
           <p className="text-base md:text-xl">Work Updates</p>

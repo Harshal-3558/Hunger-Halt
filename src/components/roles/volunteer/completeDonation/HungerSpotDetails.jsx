@@ -10,9 +10,8 @@ export default function HungerSpotDetailsParent({ user }) {
   });
 
   async function handleGetDetails() {
-    console.log(user);
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/getAssignedHungerSpot`,
+      `${import.meta.env.VITE_HOST}/volunteer/getAssignedHungerSpot`,
       {
         method: "POST",
         headers: {

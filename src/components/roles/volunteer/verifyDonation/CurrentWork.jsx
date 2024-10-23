@@ -13,7 +13,7 @@ export default function CurrentWork({ user }) {
 
   async function handleData() {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/volunteerCurrentWork`,
+      `${import.meta.env.VITE_HOST}/volunteer/volunteerCurrentWork`,
       {
         method: "POST",
         headers: {

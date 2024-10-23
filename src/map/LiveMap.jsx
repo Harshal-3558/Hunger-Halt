@@ -50,9 +50,7 @@ export default function LiveMap() {
           }
         );
         const data = await response.json();
-        console.log(data);
         setHungerSpots(data.hungerSpots);
-        console.log(data.hungerSpots);
         setNgos(data.ngos);
         setVolunteers(data.volunteers);
       } catch (error) {
@@ -146,7 +144,7 @@ export default function LiveMap() {
   }, [hungerSpots, ngos, volunteers]);
 
   return (
-    <div className="bg-slate-200 p-4 rounded-lg shadow-md md:w-full">
+    <div className="bg-slate-200 p-4 rounded-xl md:w-full">
       <h2 className="text-xl font-bold mb-2">Live Map</h2>
       <div id="live-map" className="w-full h-80 rounded-lg"></div>
       <div className="mt-2 flex space-x-4 justify-center">

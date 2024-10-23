@@ -23,7 +23,6 @@ export default function CompleteDonationButton({ id, beneficiaryNO }) {
         (position) => {
           const { longitude, latitude } = position.coords;
           setLocation({ longitude, latitude });
-          console.log(location)
         },
         (error) => {
           console.error("Error fetching location: ", error);
@@ -34,9 +33,8 @@ export default function CompleteDonationButton({ id, beneficiaryNO }) {
   }, []);
 
   async function handleSubmit() {
-    console.log(location);
     // const response = await fetch(
-    //   `${import.meta.env.VITE_HOST}/user/checkBeforeDonation`,
+    //   `${import.meta.env.VITE_HOST}/volunteer/checkBeforeDonation`,
     //   {
     //     method: "POST",
     //     headers: {

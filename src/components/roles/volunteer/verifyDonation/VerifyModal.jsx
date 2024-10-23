@@ -25,7 +25,7 @@ export default function VerifyModal({ id }) {
 
   async function handleSubmit() {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/verifyFood`,
+      `${import.meta.env.VITE_HOST}/volunteer/verifyFood`,
       {
         method: "POST",
         headers: {

@@ -37,7 +37,6 @@ export default function WorkingLocation({ setLocation, value, setAddress }) {
       `https://api.mapbox.com/search/searchbox/v1/retrieve/${id}?session_token=0d003885-fedd-4db1-8903-3db30550c305&access_token=${mapboxToken}`
     );
     const data = await response.json();
-    console.log(data.features[0].properties.full_address);
     setAddress(`${data.features[0].properties.name},${data.features[0].properties.full_address}`);
     setLocation(data.features[0].geometry.coordinates);
     setQuery(suggestion.name);
