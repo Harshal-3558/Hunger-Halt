@@ -17,7 +17,6 @@ export default function Status() {
       );
       const data = await response.json();
       setVolunteers(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching volunteer data:", error);
     }

@@ -1,7 +1,9 @@
 // public/firebase-messaging-sw.js
+// eslint-disable-next-line no-undef
 importScripts(
   "https://www.gstatic.com/firebasejs/9.1.2/firebase-app-compat.js"
 );
+// eslint-disable-next-line no-undef
 importScripts(
   "https://www.gstatic.com/firebasejs/9.1.2/firebase-messaging-compat.js"
 );
@@ -16,8 +18,10 @@ const firebaseConfig = {
   measurementId: "G-7NKP1JJDE3",
 };
 
+// eslint-disable-next-line no-undef
 firebase.initializeApp(firebaseConfig);
 
+// eslint-disable-next-line no-undef
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {

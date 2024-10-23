@@ -31,6 +31,7 @@ export default function CreateHungerSpot() {
   const [beneficiaries, setBeneficiaries] = useState(0);
   const [disableButton, setDisableButton] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [hash, setHash] = useState("");
   const toast = useToast();
 
   async function checkImage(image) {
@@ -69,7 +70,6 @@ export default function CreateHungerSpot() {
       );
 
       const data = await response.json();
-      console.log(data);
       setImage(data.secure_url);
     } catch (error) {
       console.error("Error uploading image: ", error);
@@ -78,17 +78,18 @@ export default function CreateHungerSpot() {
     reader.onload = async () => {
       const base64Image = reader.result;
       const value = await checkImage(base64Image);
-      if (value.isHungerSpot) {
+      if (value.success) {
         toast({
-          title: "Hunger Spot verified",
+          title: value.message,
           status: "success",
           position: "top",
         });
         setLoading(false);
         setDisableButton(false);
+        setHash(value.hash);
       } else {
         toast({
-          title: "This is not a hunger spot",
+          title: value.message,
           status: "error",
           position: "top",
         });
@@ -107,16 +108,21 @@ export default function CreateHungerSpot() {
           onClick={onOpen}
         >
           <div>
-            <FaCirclePlus className="text-[30px]" />
+            <FaCirclePlus className="text-[40px]" />
           </div>
           <div>
             <p className="text-base md:text-xl">Register Hunger Spot</p>
           </div>
         </button>
 
-        <Modal isOpen={isOpen} onClose={onClose} size={"3xl"} isCentered={true}>
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          size={{ base: "full", md: "3xl" }}
+          isCentered={true}
+        >
           <ModalOverlay />
-          <ModalContent maxWidth="500px" width="95%">
+          <ModalContent>
             <ModalHeader>Enter Hunger Spot details</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
@@ -177,6 +183,7 @@ export default function CreateHungerSpot() {
                 image={image}
                 disableButton={disableButton}
                 loading={loading}
+                hash={hash}
               />
               <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>

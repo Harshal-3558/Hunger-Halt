@@ -20,7 +20,7 @@ export default function WorkDetailsModal({ isOpen, onClose, donationID }) {
   useEffect(() => {
     async function handleData() {
       const response = await fetch(
-        `${import.meta.env.VITE_HOST}/user/volunteerUpdatesDetails`,
+        `${import.meta.env.VITE_HOST}/volunteer/volunteerUpdatesDetails`,
         {
           method: "POST",
           headers: {
@@ -32,7 +32,6 @@ export default function WorkDetailsModal({ isOpen, onClose, donationID }) {
         }
       );
       const value = await response.json();
-      console.log(value)
       setDetail(value);
     }
     handleData();

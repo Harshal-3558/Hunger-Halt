@@ -25,7 +25,7 @@ export default function CompleteDonationModal({
   const toast = useToast();
   async function handleSubmit() {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/completeDonation`,
+      `${import.meta.env.VITE_HOST}/volunteer/completeDonation`,
       {
         method: "POST",
         headers: {
@@ -38,7 +38,6 @@ export default function CompleteDonationModal({
         }),
       }
     );
-    console.log(response)
     if (response.ok) {
       toast({
         title: "Donation Process Completed",

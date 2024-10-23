@@ -32,13 +32,11 @@ export default function DonorUpdates({ user }) {
 
   useEffect(() => {
     getDonationUpdates();
-    console.log(updates);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    socket.on("FoodDBChange", (change) => {
-      console.log("Database change detected:", change);
+    socket.on("FoodDBChange", () => {
       getDonationUpdates();
     });
 

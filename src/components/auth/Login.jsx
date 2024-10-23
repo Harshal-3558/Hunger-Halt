@@ -66,9 +66,8 @@ export default function Login() {
           duration: 1000,
         });
         const user = await response.json();
-        console.log(user);
         const token = await requestFCMPermission();
-        await fetch(`${import.meta.env.VITE_HOST}/user/updateFCM`, {
+        await fetch(`${import.meta.env.VITE_HOST}/auth/updateFCM`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

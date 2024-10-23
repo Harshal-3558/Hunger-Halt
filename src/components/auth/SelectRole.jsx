@@ -27,7 +27,7 @@ export default function SelectRole() {
 
   async function onSubmit() {
     const response = await fetch(
-      `${import.meta.env.VITE_HOST}/user/updateDetails`,
+      `${import.meta.env.VITE_HOST}/auth/updateDetails`,
       {
         method: "POST",
         headers: {
