@@ -48,9 +48,9 @@ function RadioBlock(props) {
 
 export default function RadioCard({ setRole }) {
   const options = [
-    { value: "donor", icon: FaHandHoldingHeart },
-    { value: "volunteer", icon: FaHandshakeAngle },
-    { value: "ngo", icon: FaBuildingNgo },
+    { value: "donor", label: "Donor", icon: FaHandHoldingHeart },
+    { value: "volunteer", label: "Volunteer", icon: FaHandshakeAngle },
+    { value: "ngo", label: "NGO", icon: FaBuildingNgo },
   ];
 
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -72,7 +72,7 @@ export default function RadioCard({ setRole }) {
         const radio = getRadioProps({ value: option.value });
         return (
           <RadioBlock key={option.value} {...radio} icon={option.icon}>
-            {option.value}
+            {option.label}
           </RadioBlock>
         );
       })}

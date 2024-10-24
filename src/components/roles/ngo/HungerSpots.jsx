@@ -51,7 +51,7 @@ export default function HungerSpots() {
     const fetchHungerSpots = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_HOST}/location/hungerSpot`,
+          `${import.meta.env.VITE_HOST}/ngo/hungerSpot`,
           {
             method: "POST",
             headers: {
@@ -88,7 +88,11 @@ export default function HungerSpots() {
         .setLngLat([spot.location.coordinates[0], spot.location.coordinates[1]])
         .setPopup(
           new mapboxgl.Popup().setHTML(
-            `<h3 className="font-bold">${spot.name}</h3><p>${spot.address}</p>`
+            ` <div class="popup">
+              <p>${spot.address}</p>
+              <img src="${spot.image}" alt="Hunger Spot Image" class="w-full rounded-lg mb-2" />
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View Details</button>
+            </div>`
           )
         ) // add popups
         .addTo(map);
@@ -141,7 +145,14 @@ export default function HungerSpots() {
               </div>
             </div>
           </div>
-          <div className="h-96 w-[500px] bg-slate-200 rounded-lg p-3 overflow-y-scroll">
+          <div
+            className="h-96 w-[500px] bg-slate-200 rounded-lg p-3 overflow-y-scroll"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              MsOverflowStyle: "none",
+              scrollbarWidth: "none",
+            }}
+          >
             {hungerSpots.map((spot, index) => (
               <div
                 key={index}

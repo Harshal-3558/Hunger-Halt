@@ -119,7 +119,7 @@ export default function LiveMap() {
         ])
         .setPopup(
           new mapboxgl.Popup().setHTML(
-            `<h3 className="font-bold">${ngo.name}</h3><p>${ngo.address}</p>`
+            `<h3 className="font-bold">${ngo.adminName}</h3><p>${ngo.email}</p>`
           )
         ) // add popups
         .addTo(map);

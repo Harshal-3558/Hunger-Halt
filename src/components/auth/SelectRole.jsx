@@ -10,6 +10,9 @@ export default function SelectRole() {
   const [location, setLocation] = useState([]);
   const [orgName, setOrgName] = useState("");
   const [orgEmail, setOrgEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [aadhaar, setAadhaar] = useState("");
+  const [reg, setReg] = useState("");
   const [days, setDays] = useState([]);
   const { user } = useSelector((state) => state.auth);
   const toast = useToast();
@@ -26,6 +29,7 @@ export default function SelectRole() {
   };
 
   async function onSubmit() {
+    console.log(role, location, orgName, orgEmail, phone, aadhaar, reg, days)
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/auth/updateDetails`,
       {
@@ -40,6 +44,9 @@ export default function SelectRole() {
           orgName,
           orgEmail,
           days,
+          phone,
+          aadhaar,
+          reg,
         }),
       }
     );
@@ -64,16 +71,15 @@ export default function SelectRole() {
   return (
     <div>
       <div className="flex justify-center items-center py-7">
-        <div className="p-6 rounded-xl border shadow-xl md:space-y-7 space-y-6 w-[400px] md:w-[500px]">
+        <div className="p-6 rounded-xl border shadow-xl md:space-y-7 space-y-6 w-[400px] md:w-[600px]">
           <div className="flex-row space-y-7">
             <h1 className="md:text-3xl text-2xl font-bold text-center">
-              Update Details
+              Select Your Role
             </h1>
-            <div className="space-y-2">
-              <p className="text-lg font-semibold text-gray-500">
-                Select your role
-              </p>
-              <RadioCard setRole={setRole} />
+            <div className="space-y-2 justify-center">
+              <div className="flex items-center justify-center">
+                <RadioCard setRole={setRole} />
+              </div>
             </div>
             {role === "volunteer" && (
               <div className="space-y-2">
@@ -81,7 +87,7 @@ export default function SelectRole() {
                   Select your working days
                 </p>
                 <div className="flex flex-col justify-center items-center">
-                  <div className="space-x-7 md:space-x-12">
+                  <div className="space-x-7 md:space-x-5">
                     <Checkbox
                       size={"lg"}
                       value={"mon"}
@@ -110,8 +116,6 @@ export default function SelectRole() {
                     >
                       Thr
                     </Checkbox>
-                  </div>
-                  <div className="space-x-7 md:space-x-12">
                     <Checkbox
                       size={"lg"}
                       value={"fri"}
@@ -151,14 +155,28 @@ export default function SelectRole() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-lg font-semibold text-gray-500">
-                    Enter NGO Name
+                    Enter your Phone Number
                   </p>
                   <Input
+                    type="number"
                     variant={"filled"}
                     onChange={(e) => {
-                      setOrgName(e.target.value);
+                      setPhone(e.target.value);
                     }}
-                    placeholder="Enter Name"
+                    placeholder="Enter phone number"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Enter your Aadhaar Number
+                  </p>
+                  <Input
+                    type="number"
+                    variant={"filled"}
+                    onChange={(e) => {
+                      setAadhaar(e.target.value);
+                    }}
+                    placeholder="Enter your aadhaar number"
                   />
                 </div>
               </div>
@@ -167,7 +185,7 @@ export default function SelectRole() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <p className="text-lg font-semibold text-gray-500">
-                    Enter your Organization name
+                    Enter your Organization Name
                   </p>
                   <Input
                     variant={"filled"}
@@ -191,6 +209,19 @@ export default function SelectRole() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-lg font-semibold text-gray-500">
+                    Enter your Organization Registration Number
+                  </p>
+                  <Input
+                    type="number"
+                    variant={"filled"}
+                    onChange={(e) => {
+                      setReg(e.target.value);
+                    }}
+                    placeholder="Enter rergistration number"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
                     Select your Organization location
                   </p>
                   <WorkingLocation
@@ -202,17 +233,33 @@ export default function SelectRole() {
               </div>
             )}
             {role === "donor" && (
-              <div className="space-y-2">
-                <p className="text-lg font-semibold text-gray-500">
-                  Enter your Bussiness Name
-                </p>
-                <Input
-                  variant={"filled"}
-                  onChange={(e) => {
-                    setOrgName(e.target.value);
-                  }}
-                  placeholder="Enter Name"
-                />
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Enter your Phone Number
+                  </p>
+                  <Input
+                    type="number"
+                    variant={"filled"}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                    }}
+                    placeholder="Enter phone number"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-gray-500">
+                    Enter your Aadhaar Number
+                  </p>
+                  <Input
+                    type="number"
+                    variant={"filled"}
+                    onChange={(e) => {
+                      setAadhaar(e.target.value);
+                    }}
+                    placeholder="Enter your aadhaar number"
+                  />
+                </div>
               </div>
             )}
           </div>
