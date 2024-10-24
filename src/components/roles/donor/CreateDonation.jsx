@@ -67,9 +67,15 @@ export default function CreateDonation() {
             <FormControl>
               <FormLabel>Food name</FormLabel>
               <Input
+                type="text"
                 placeholder="e.g Pav Bhaji"
                 value={foodName}
                 onChange={(e) => setFoodName(e.target.value)}
+                onKeyPress={(e) => {
+                  if (!/[a-zA-Z ]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
               />
             </FormControl>
             <FormControl mt={4}>
@@ -117,14 +123,6 @@ export default function CreateDonation() {
                 Get Current Location
               </Button>
             </FormControl>
-            {/* <FormControl mt={4}>
-              <FormLabel>Current Location</FormLabel>
-              <Input
-                isReadOnly={true}
-                value={address && `${address}`}
-                placeholder="Your current address"
-              />
-            </FormControl> */}
             <div>
               {location && (
                 <div

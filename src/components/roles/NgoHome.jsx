@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import Loader from "../Loader";
 import Status from "./ngo/Status";
 import HungerSpots from "./ngo/HungerSpots";
+import NgoStats from "./ngo/NgoStats";
+// import NgoStore from "./ngo/NgoStore";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -21,12 +23,15 @@ export default function NgoHome() {
           <h1 className="text-xl md:text-2xl font-semibold">
             Welcome, {user.name}
           </h1>
-          <Status/>
+          <Status />
           <div className="md:flex justify-between space-y-2 md:space-y-0">
             <div>
-              <HungerSpots/>
+              <HungerSpots />
             </div>
-            {/* <NgoStore/> */}
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <NgoStats />
+            {/* <NgoStore /> */}
           </div>
         </div>
       </div>
