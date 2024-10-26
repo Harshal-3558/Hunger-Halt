@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import Status from "./ngo/Status";
 import HungerSpots from "./ngo/HungerSpots";
 import NgoStats from "./ngo/NgoStats";
-// import NgoStore from "./ngo/NgoStore";
+import NgoStore from "./ngo/NgoStore";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -31,7 +31,7 @@ export default function NgoHome() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <NgoStats />
-            {/* <NgoStore /> */}
+            <NgoStore />
           </div>
         </div>
       </div>

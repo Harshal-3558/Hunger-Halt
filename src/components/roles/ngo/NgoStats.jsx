@@ -19,14 +19,14 @@ const NgoStats = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("FoodDBChange", () => {
+    socket.on("MonthlyDonationDBChange", () => {
       fetch(`${import.meta.env.VITE_HOST}/donor/monthly-donations`)
         .then((response) => response.json())
         .then((data) => setChartData(data))
         .catch((error) => console.error(error));
     });
     return () => {
-      socket.off("FoodDBChange");
+      socket.off("MonthlyDonationDBChange");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
