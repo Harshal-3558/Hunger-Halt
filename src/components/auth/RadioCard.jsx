@@ -20,7 +20,7 @@ function RadioBlock(props) {
   const checkbox = getRadioProps();
 
   return (
-    <Box as="label" width={useBreakpointValue({ base: "100%", md: "auto" })}>
+    <Box as="label" width={useBreakpointValue({ base: "200%", md: "auto" })}>
       <input {...input} />
       <Box
         {...checkbox}

@@ -46,31 +46,31 @@ export default function HungerSpots() {
     getUserLocation();
   }, []);
 
+  const fetchHungerSpots = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_HOST}/ngo/hungerSpot`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userLocation: location,
+          }),
+        }
+      );
+      const data = await response.json();
+      setHungerSpots(data);
+    } catch (error) {
+      console.error("Error fetching hunger spots:", error);
+    }
+  };
+
   useEffect(() => {
     // Fetch hunger spots from the backend
-    const fetchHungerSpots = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_HOST}/ngo/hungerSpot`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userLocation: location,
-            }),
-          }
-        );
-        const data = await response.json();
-        setHungerSpots(data);
-      } catch (error) {
-        console.error("Error fetching hunger spots:", error);
-      }
-    };
-
     fetchHungerSpots();
-  }, [location]);
+  }, []);
 
   useEffect(() => {
     // Initialize Mapbox map
@@ -108,24 +108,29 @@ export default function HungerSpots() {
   }, []);
 
   useEffect(() => {
-    socket.on("newHungerSpot", (data) => {
-      if (Notification.permission === "granted") {
-        new Notification("New Hunger Spot", {
-          body: `${data.message} by ${data.name}`,
-          // icon: "/path/to/icon.png", // Optional: icon path
-        });
-      }
+    socket.on("HPDBChange", () => {
+      fetchHungerSpots();
     });
-
     return () => {
-      socket.off("newHungerSpot");
+      socket.off("HPDBChange");
     };
-  }, [socket]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleOpenModal = (spot) => {
     setSelectedSpot(spot);
     onOpen();
   };
+
+  useEffect(() => {
+    socket.on("HPDBChange", () => {
+      fetchHungerSpots();
+    });
+    return () => {
+      socket.off("HPDBChange");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

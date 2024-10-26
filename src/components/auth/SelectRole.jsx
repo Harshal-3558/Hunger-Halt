@@ -29,7 +29,6 @@ export default function SelectRole() {
   };
 
   async function onSubmit() {
-    console.log(role, location, orgName, orgEmail, phone, aadhaar, reg, days)
     const response = await fetch(
       `${import.meta.env.VITE_HOST}/auth/updateDetails`,
       {
@@ -50,6 +49,7 @@ export default function SelectRole() {
         }),
       }
     );
+    const data = await response.json();
     if (response.ok) {
       toast({
         title: "Details updated successfully",
@@ -60,7 +60,7 @@ export default function SelectRole() {
       navigate(`/${role}`);
     } else {
       toast({
-        title: "Something went wrong",
+        title: data.message,
         status: "error",
         position: "top",
         duration: 1000,
@@ -71,7 +71,7 @@ export default function SelectRole() {
   return (
     <div>
       <div className="flex justify-center items-center py-7">
-        <div className="p-6 rounded-xl border shadow-xl md:space-y-7 space-y-6 w-[400px] md:w-[600px]">
+        <div className="p-6 rounded-xl border-2 shadow-xl md:space-y-7 space-y-6 w-[400px] md:w-[600px]">
           <div className="flex-row space-y-7">
             <h1 className="md:text-3xl text-2xl font-bold text-center">
               Select Your Role
@@ -171,12 +171,13 @@ export default function SelectRole() {
                     Enter your Aadhaar Number
                   </p>
                   <Input
-                    type="number"
+                    type="text"
                     variant={"filled"}
                     onChange={(e) => {
                       setAadhaar(e.target.value);
                     }}
                     placeholder="Enter your aadhaar number"
+                    pattern="^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$"
                   />
                 </div>
               </div>
@@ -212,7 +213,7 @@ export default function SelectRole() {
                     Enter your Organization Registration Number
                   </p>
                   <Input
-                    type="number"
+                    // type="number"
                     variant={"filled"}
                     onChange={(e) => {
                       setReg(e.target.value);

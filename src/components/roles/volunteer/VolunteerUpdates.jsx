@@ -99,13 +99,14 @@ export default function VolunteerUpdates({ user }) {
         className="h-32 md:h-36 w-full md:w-full bg-slate-200 border rounded-xl flex flex-col justify-center items-center space-y-3"
       >
         <div className="relative">
-          <div className="absolute -top-1 -right-3">
-            <span className="relative flex h-5 w-5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-5 w-5 bg-sky-500"></span>
-            </span>
-          </div>
-          <FaListCheck className="text-[40px]" />
+          {updates.length != 0 ? (
+            <div className="absolute -top-1 -right-3 bg-red-500 text-white rounded-full w-5 h-5 flex justify-center items-center">
+              {updates.length}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <FaListCheck className="text-[30px] md:text-[40px]" />
         </div>
         <div>
           <p className="text-base md:text-xl">Work Updates</p>
@@ -122,11 +123,11 @@ export default function VolunteerUpdates({ user }) {
               updates.map((items) => (
                 <div
                   key={items._id}
-                  className="p-2 bg-gray-200 rounded-lg font-medium text-base space-y-4"
+                  className="p-2 bg-gray-200 rounded-lg text-base space-y-4"
                 >
                   <div className="space-y-1">
-                    <div>Donor Name : {items.donorName}</div>
-                    <div>Donor Address : {items.donorAddress}</div>
+                    <div><span className="font-medium">Donor Name</span> : {items.donorName}</div>
+                    <div><span className="font-medium">Donor Address</span> : {items.donorAddress}</div>
                   </div>
                   <div className="flex space-x-2 justify-end">
                     <Button

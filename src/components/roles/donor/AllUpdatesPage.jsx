@@ -12,35 +12,40 @@ import {
   ModalOverlay,
   Button,
 } from "@chakra-ui/react";
+import { io } from "socket.io-client";
 
 export default function AllUpdatesPage() {
   const { user } = useSelector((state) => state.auth);
   const [updates, setUpdates] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState();
+  const socket = io(`${import.meta.env.VITE_HOST}`, {
+    withCredentials: true,
+  });
 
+  async function getDonationUpdates() {
+    const response = await fetch(
+      `${import.meta.env.VITE_HOST}/donor/donationStatus`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user?.email,
+        }),
+      }
+    );
+    const data = await response.json();
+    const sortedData = data.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setUpdates(sortedData);
+    console.log(sortedData);
+  }
   useEffect(() => {
-    async function getDonationUpdates() {
-      const response = await fetch(
-        `${import.meta.env.VITE_HOST}/donor/donationStatus`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: user?.email,
-          }),
-        }
-      );
-      const data = await response.json();
-      const sortedData = data.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-      setUpdates(sortedData);
-    }
     getDonationUpdates();
-  }, [user]);
+  }, []);
 
   const formatDate = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -51,6 +56,25 @@ export default function AllUpdatesPage() {
     setSelectedItem(item);
     onOpen();
   };
+
+  const formatShelfLife = (hours) => {
+    const totalSeconds = hours * 3600;
+    const h = Math.floor(hours);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = Math.floor(totalSeconds % 60);
+
+    return `${h}h ${m}m ${s}s`;
+  };
+
+  useEffect(() => {
+    socket.on("FoodDBChange", () => {
+      getDonationUpdates();
+    });
+    return () => {
+      socket.off("FoodDBChange");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="p-4 space-y-4">
@@ -87,6 +111,14 @@ export default function AllUpdatesPage() {
                       Food Donation Date : {formatDate(item.createdAt)}
                     </div>
                   </div>
+                  {item.remainingShelfLife && (
+                    <div className="flex space-x-3">
+                      <div className="font-semibold">
+                        Remaining Shelf Life :{" "}
+                        {formatShelfLife(item.remainingShelfLife)}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

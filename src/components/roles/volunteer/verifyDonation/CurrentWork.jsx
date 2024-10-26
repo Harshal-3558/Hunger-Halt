@@ -26,6 +26,7 @@ export default function CurrentWork({ user }) {
     );
     const data = await response.json();
     setWork(data);
+    console.log(data);
   }
 
   useEffect(() => {
@@ -95,4 +96,5 @@ export default function CurrentWork({ user }) {
 
 CurrentWork.propTypes = {
   user: PropTypes.object,
+  setFoodID: PropTypes.func,
 };

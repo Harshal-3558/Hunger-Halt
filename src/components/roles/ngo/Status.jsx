@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { FaHandHoldingHeart, FaLocationDot, FaUser } from "react-icons/fa6";
+import { io } from "socket.io-client";
 
 export default function Status() {
   const [volunteers, setVolunteers] = useState({});
+  const socket = io(`${import.meta.env.VITE_HOST}`, {
+    withCredentials: true,
+  });
+
 
   async function fetchVolunteerData() {
     try {
@@ -26,6 +31,21 @@ export default function Status() {
   useEffect(() => {
     fetchVolunteerData();
   }, []);
+
+  useEffect(() => {
+    socket.on("newHungerSpot", (data) => {
+      if (Notification.permission === "granted") {
+        new Notification("New Hunger Spot", {
+          body: `${data.message} by ${data.name}`,
+          // icon: "/path/to/icon.png", // Optional: icon path
+        });
+      }
+    });
+
+    return () => {
+      socket.off("newHungerSpot");
+    };
+  }, [socket]);
 
   return (
     <div className="bg-slate-200 rounded-xl border">

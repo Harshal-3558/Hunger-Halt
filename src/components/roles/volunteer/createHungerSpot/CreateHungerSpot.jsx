@@ -93,6 +93,7 @@ export default function CreateHungerSpot() {
           status: "error",
           position: "top",
         });
+        setDisableButton(true);
         setLoading(false);
       }
     };
@@ -108,7 +109,7 @@ export default function CreateHungerSpot() {
           onClick={onOpen}
         >
           <div>
-            <FaCirclePlus className="text-[40px]" />
+            <FaCirclePlus className="text-[30px] md:text-[40px]" />
           </div>
           <div>
             <p className="text-base md:text-xl">Register Hunger Spot</p>

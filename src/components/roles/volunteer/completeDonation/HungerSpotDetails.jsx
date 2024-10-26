@@ -24,6 +24,7 @@ export default function HungerSpotDetailsParent({ user }) {
     );
     const data = await response.json();
     setDetails(data);
+    console.log(data);
   }
   useEffect(() => {
     handleGetDetails();

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CreateHungerSpot from "./volunteer/createHungerSpot/CreateHungerSpot";
 import { useSelector } from "react-redux";
 import CurrentWork from "./volunteer/verifyDonation/CurrentWork";
@@ -12,6 +12,7 @@ import HungerSpotDetails from "./volunteer/completeDonation/HungerSpotDetails";
 
 export default function VolunteerHome() {
   const { user } = useSelector((state) => state.auth);
+  const [foodID, setFoodID] = useState("");
 
   useEffect(() => {
     if ("Notification" in window) {
@@ -46,8 +47,8 @@ export default function VolunteerHome() {
           <h1 className="text-xl md:text-2xl font-semibold">
             Welcome, {user.name}
           </h1>
-          <CurrentWork user={user} />
-          <HungerSpotDetails user={user}/>
+          <CurrentWork user={user} setFoodID={setFoodID}/>
+          <HungerSpotDetails user={user} foodID={foodID} />
           <div className="grid md:grid-cols-2 md:grid-flow-col gap-4">
             <div className="flex flex-col justify-between">
               <div className="grid grid-cols-2 gap-4">

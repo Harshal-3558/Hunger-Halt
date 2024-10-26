@@ -119,7 +119,7 @@ export default function LiveMap() {
         ])
         .setPopup(
           new mapboxgl.Popup().setHTML(
-            `<h3 className="font-bold">${ngo.adminName}</h3><p>${ngo.email}</p>`
+            `<h3 className="font-bold">Name: ${ngo.adminName}</h3><p>Email: ${ngo.email}</p>`
           )
         ) // add popups
         .addTo(map);
@@ -134,7 +134,7 @@ export default function LiveMap() {
         ])
         .setPopup(
           new mapboxgl.Popup().setHTML(
-            `<h3 className="font-bold">${volunteer.name}</h3><p>${volunteer.email}</p>`
+            `<h3 className="font-bold">Name: ${volunteer.name}</h3><p>Email: ${volunteer.email}</p>`
           )
         ) // add popups
         .addTo(map);
