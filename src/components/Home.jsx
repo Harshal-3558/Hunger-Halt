@@ -19,6 +19,7 @@ import logo7 from "/images/logo7.png";
 import logo8 from "/images/logo8.png";
 import logo9 from "/images/logo9.png";
 import logo10 from "/images/logo10.png";
+import BioHome from "./roles/biogas/BioHome";
 
 export default function Home() {
   return (
@@ -213,7 +214,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-
+      
+      {/* BioGas SECTION */}
+      <BioHome/>
       {/* PARTNERS SECTION */}
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <div className="sm:w-1/2 xl:w-1/3 mx-auto text-center mb-6 md:mb-12">

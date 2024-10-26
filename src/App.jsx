@@ -13,6 +13,8 @@ import NgoHome from "./components/roles/NgoHome";
 import AllUpdatesPage from "./components/roles/donor/AllUpdatesPage";
 import Selectrole from "./components/auth/SelectRole";
 import VolunteerUpdates from "./components/roles/volunteer/VolunteerUpdates";
+import BioHome from "./components/roles/biogas/BioHome";
+import BioDashboard from "./components/roles/biogas/BioDashboard";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -32,6 +34,8 @@ export default function App() {
         <Route path="/volunteer" element={<VolunteerHome />} />
         <Route path="/donor" element={<DonorHome />} />
         <Route path="/ngo" element={<NgoHome />} />
+        <Route path="/biogas" element={<BioHome />} />
+        <Route path="/biodash" element={<BioDashboard />} />
         <Route path="/donationHistory" element={<AllUpdatesPage />} />
         <Route path="/volunteerUpdates" element={<VolunteerUpdates />} />
       </Routes>

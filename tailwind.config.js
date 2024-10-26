@@ -13,6 +13,13 @@ export default {
     transparent: 'transparent',
     current: 'currentColor',
     extend: {
+      gridTemplateColumns: {
+
+        // Complex site-specific row configuration
+        'layout': '200px minmax(900px, 1fr) 100px',
+
+        'custom': '3fr 1fr',
+      },
       colors: {
         // light mode
         tremor: {
