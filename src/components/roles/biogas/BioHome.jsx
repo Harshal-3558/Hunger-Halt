@@ -1,4 +1,3 @@
-import React from 'react';
 import RegisterPlant from './RegisterPlant';
 
 const BioHome = () => {

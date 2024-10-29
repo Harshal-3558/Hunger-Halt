@@ -13,7 +13,7 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import { FaCirclePlus } from "react-icons/fa6";
+// import { FaCirclePlus } from "react-icons/fa6";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 // import SubmitButton from "../donor/SubmitButton";
@@ -30,9 +30,9 @@ export default function RegisterPlant() {
   const [orgName, setOrgName] = useState("");
   const [phoneno, setPhoneno] = useState("");
   const [regno, setRegno] = useState("");
-  const [qty, setQty] = useState("");
-  const [person, setPerson] = useState("");
-  const [shelfLife, setShelfLife] = useState("");
+  // const [qty, setQty] = useState("");
+  // const [person, setPerson] = useState("");
+  // const [shelfLife, setShelfLife] = useState("");
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export default function RegisterPlant() {
       if (removeMap) removeMap();
     };
   }, [location]);
+
 
   return (
     <div>

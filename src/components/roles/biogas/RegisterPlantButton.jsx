@@ -1,37 +1,30 @@
 import { Button, useToast } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 export default function RegisterPlantButton({
-    location,
-    orgName,
-    phoneno,
-    regno,
-    onClose,
+  location,
+  orgName,
+  phoneno,
+  regno,
+  onClose,
 }) {
-  const user = useSelector((state) => state.auth.user);
+  // const user = useSelector((state) => state.auth.user);
   const toast = useToast();
 
   async function handleFunction() {
-    const response = await fetch(
-      `${import.meta.env.VITE_HOST}/donor/donateFood`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-        //   foodName,
-        //   donorName: user.name,
-        //   donorEmail: user.email,
-        //   beneficiary: person,
-        //   qty,
-        //   shelfLife,
-          location,
-        //   address,
-        }),
-      }
-    );
+    const response = await fetch(`${import.meta.env.VITE_HOST}/biogas/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: orgName,
+        phone: phoneno,
+        regNo: regno,
+        location,
+      }),
+    });
 
     if (response.ok) {
       toast({
@@ -49,33 +42,26 @@ export default function RegisterPlantButton({
     }
   }
 
-  async function ahandleFunction() {
-    console.log(location,
-        orgName,
-        phoneno,
-        regno,)
-  }
-
   return (
     <div>
       <Button
         onClick={() => {
-          ahandleFunction();
+          handleFunction();
           onClose();
+          window.location.href = '/biodash';
         }}
         colorScheme="blue"
         mr={3}
       >
         Save
       </Button>
-    </div>
-  );
+    </div>  );
 }
 
-// RegisterPlantButton.propTypes = {
-//   location: PropTypes.object,
-//   orgName: PropTypes.string,
-//   phoneno: PropTypes.number,
-//   regno: PropTypes.string,
-//   onClose: PropTypes.func,
-// };
+RegisterPlantButton.propTypes = {
+  location: PropTypes.object,
+  orgName: PropTypes.string,
+  phoneno: PropTypes.number,
+  regno: PropTypes.string,
+  onClose: PropTypes.func,
+};

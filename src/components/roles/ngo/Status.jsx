@@ -102,7 +102,7 @@ export default function Status() {
               <div className="grow">
                 <div className="flex items-center gap-x-2">
                   <p className="text-xs uppercase tracking-wide text-gray-500">
-                    Active Hunger Spots
+                    Hunger Spots
                   </p>
                 </div>
                 <div className="mt-1 flex items-center gap-x-2">

@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
-import CreateDonation from "../donor/CreateDonation";
+// import CreateDonation from "../donor/CreateDonation";
 // import DonorUpdates from "./donor/DonorUpdates";
 import Loader from "../../Loader";
 import DonorStats from "../donor/DonorStats";
 import LiveMap from "../../../map/LiveMap";
-import { FaClockRotateLeft } from "react-icons/fa6";
+// import { FaClockRotateLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { LineChart, Card, Title, Text, AreaChart } from '@tremor/react';
-import RecentActivity from "./RecentActivity";
+import { LineChart, Card, AreaChart } from '@tremor/react';
+// import RecentActivity from "./RecentActivity";
 import RequestCorpus from "./RequestCorpus";
 import { FiAlertCircle } from "react-icons/fi";
 
